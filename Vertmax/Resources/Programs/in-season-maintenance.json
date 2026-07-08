@@ -1,0 +1,87 @@
+{
+  "id": "in-season-maintenance",
+  "name": "In-Season Maintenance",
+  "summary": "Low-volume strength and plyometric work to hold onto your gains without adding fatigue on top of practice and games.",
+  "equipmentLevel": "basic",
+  "experienceLevel": "some",
+  "focus": "standing",
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "ism-w1-d1",
+          "dayLabel": "Day 1",
+          "name": "Maintenance A",
+          "exercises": [
+            { "name": "Goblet Squat", "sets": 2, "reps": "8", "restSeconds": 75, "isPlyometric": false, "note": "Keep this well short of failure, since you have practice this week." },
+            { "name": "Pogo Hops", "sets": 2, "reps": "12", "restSeconds": 45, "isPlyometric": true, "note": "Low volume by design. This is upkeep, not a training block." },
+            { "name": "Single-Leg Glute Bridge", "sets": 2, "reps": "10/leg", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "ism-w1-d2",
+          "dayLabel": "Day 2",
+          "name": "Maintenance B",
+          "exercises": [
+            { "name": "Romanian Deadlift (Dumbbell)", "sets": 2, "reps": "8", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 2, "reps": "4", "restSeconds": 90, "isPlyometric": true, "note": "Quality over quantity, with full recovery between reps." },
+            { "name": "Calf Raise", "sets": 2, "reps": "15", "restSeconds": 30, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 2,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "ism-w2-d1",
+          "dayLabel": "Day 1",
+          "name": "Maintenance A",
+          "exercises": [
+            { "name": "Goblet Squat", "sets": 2, "reps": "8", "restSeconds": 75, "isPlyometric": false, "note": "Keep this well short of failure, since you have practice this week." },
+            { "name": "Pogo Hops", "sets": 2, "reps": "12", "restSeconds": 45, "isPlyometric": true, "note": "Low volume by design. This is upkeep, not a training block." },
+            { "name": "Single-Leg Glute Bridge", "sets": 2, "reps": "10/leg", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "ism-w2-d2",
+          "dayLabel": "Day 2",
+          "name": "Maintenance B",
+          "exercises": [
+            { "name": "Romanian Deadlift (Dumbbell)", "sets": 2, "reps": "8", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 2, "reps": "4", "restSeconds": 90, "isPlyometric": true, "note": "Quality over quantity, with full recovery between reps." },
+            { "name": "Calf Raise", "sets": 2, "reps": "15", "restSeconds": 30, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 3,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "ism-w3-d1",
+          "dayLabel": "Day 1",
+          "name": "Maintenance A",
+          "exercises": [
+            { "name": "Goblet Squat", "sets": 2, "reps": "8", "restSeconds": 75, "isPlyometric": false, "note": "Keep this well short of failure, since you have practice this week." },
+            { "name": "Pogo Hops", "sets": 2, "reps": "12", "restSeconds": 45, "isPlyometric": true, "note": "Low volume by design. This is upkeep, not a training block." },
+            { "name": "Single-Leg Glute Bridge", "sets": 2, "reps": "10/leg", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "ism-w3-d2",
+          "dayLabel": "Day 2",
+          "name": "Retest Day",
+          "exercises": [
+            { "name": "Romanian Deadlift (Dumbbell)", "sets": 2, "reps": "8", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Measured Retest Jump", "sets": 3, "reps": "1", "restSeconds": 120, "isPlyometric": false, "note": "Take your retest measurement in the app today." }
+          ]
+        }
+      ]
+    }
+  ]
+}

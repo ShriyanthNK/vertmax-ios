@@ -1,0 +1,116 @@
+{
+  "id": "approach-jump-focus",
+  "name": "Approach Jump Focus",
+  "summary": "Penultimate-step mechanics and run-up power for basketball and volleyball approach jumps.",
+  "equipmentLevel": "basic",
+  "experienceLevel": "some",
+  "focus": "approach",
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "aj-w1-d1",
+          "dayLabel": "Day 1",
+          "name": "Approach Mechanics",
+          "exercises": [
+            { "name": "3-Step Approach Drill (no jump)", "sets": 4, "reps": "6", "restSeconds": 60, "isPlyometric": false, "note": "Walk through the penultimate step: long, low, and fast." },
+            { "name": "Goblet Squat", "sets": 3, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Single-Leg Pogo Hops", "sets": 3, "reps": "10/leg", "restSeconds": 45, "isPlyometric": true, "note": "Stiff ankle, quick ground contact." },
+            { "name": "Banded Lateral Walk", "sets": 3, "reps": "10/side", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "aj-w1-d2",
+          "dayLabel": "Day 2",
+          "name": "Approach Power",
+          "exercises": [
+            { "name": "Full Approach Jump (submax)", "sets": 4, "reps": "3", "restSeconds": 120, "isPlyometric": true, "note": "70-80% effort, grooving the pattern instead of maxing out." },
+            { "name": "Romanian Deadlift (Dumbbell)", "sets": 3, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 3, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Land soft, hold the landing." },
+            { "name": "Dead Bug", "sets": 3, "reps": "10/side", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 2,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "aj-w2-d1",
+          "dayLabel": "Day 1",
+          "name": "Approach Mechanics",
+          "exercises": [
+            { "name": "3-Step Approach Drill (no jump)", "sets": 4, "reps": "6", "restSeconds": 60, "isPlyometric": false, "note": "Walk through the penultimate step: long, low, and fast." },
+            { "name": "Goblet Squat", "sets": 4, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Single-Leg Pogo Hops", "sets": 3, "reps": "12/leg", "restSeconds": 45, "isPlyometric": true, "note": "Stiff ankle, quick ground contact." },
+            { "name": "Banded Lateral Walk", "sets": 3, "reps": "12/side", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "aj-w2-d2",
+          "dayLabel": "Day 2",
+          "name": "Approach Power",
+          "exercises": [
+            { "name": "Full Approach Jump (submax)", "sets": 5, "reps": "3", "restSeconds": 120, "isPlyometric": true, "note": "80% effort, grooving the pattern." },
+            { "name": "Romanian Deadlift (Dumbbell)", "sets": 3, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 4, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Land soft, hold the landing." },
+            { "name": "Dead Bug", "sets": 3, "reps": "12/side", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 3,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "aj-w3-d1",
+          "dayLabel": "Day 1",
+          "name": "Approach Mechanics",
+          "exercises": [
+            { "name": "3-Step Approach Drill (no jump)", "sets": 3, "reps": "6", "restSeconds": 60, "isPlyometric": false, "note": "Add a touch of speed while keeping the pattern clean." },
+            { "name": "Goblet Squat", "sets": 4, "reps": "12", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Single-Leg Pogo Hops", "sets": 4, "reps": "12/leg", "restSeconds": 45, "isPlyometric": true, "note": "Stiff ankle, quick ground contact." },
+            { "name": "Banded Lateral Walk", "sets": 3, "reps": "15/side", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "aj-w3-d2",
+          "dayLabel": "Day 2",
+          "name": "Approach Power",
+          "exercises": [
+            { "name": "Full Approach Jump (near-max)", "sets": 5, "reps": "3", "restSeconds": 150, "isPlyometric": true, "note": "90%+ effort with full recovery between reps." },
+            { "name": "Romanian Deadlift (Dumbbell)", "sets": 4, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 4, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Land soft, hold the landing." }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 4,
+      "isDeload": true,
+      "sessions": [
+        {
+          "id": "aj-w4-d1",
+          "dayLabel": "Day 1",
+          "name": "Deload: Mechanics",
+          "exercises": [
+            { "name": "3-Step Approach Drill (no jump)", "sets": 3, "reps": "5", "restSeconds": 60, "isPlyometric": false, "note": "Light week. Keep the pattern sharp." },
+            { "name": "Single-Leg Pogo Hops", "sets": 2, "reps": "8/leg", "restSeconds": 45, "isPlyometric": true, "note": "Easy, controlled." }
+          ]
+        },
+        {
+          "id": "aj-w4-d2",
+          "dayLabel": "Day 2",
+          "name": "Retest Day",
+          "exercises": [
+            { "name": "Measured Retest Approach Jump", "sets": 3, "reps": "1", "restSeconds": 150, "isPlyometric": false, "note": "Take your retest measurement in the app today." }
+          ]
+        }
+      ]
+    }
+  ]
+}

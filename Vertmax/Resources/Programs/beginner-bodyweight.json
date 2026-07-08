@@ -1,0 +1,119 @@
+{
+  "id": "beginner-bodyweight",
+  "name": "Beginner Bodyweight",
+  "summary": "Build a plyometric base and clean jumping mechanics with zero equipment.",
+  "equipmentLevel": "bodyweight",
+  "experienceLevel": "new",
+  "focus": "standing",
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "bw-w1-d1",
+          "dayLabel": "Day 1",
+          "name": "Foundation A",
+          "exercises": [
+            { "name": "Bodyweight Squat", "sets": 3, "reps": "12", "restSeconds": 60, "isPlyometric": false, "note": "Full depth, control the descent." },
+            { "name": "Glute Bridge", "sets": 3, "reps": "15", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 3, "reps": "15", "restSeconds": 45, "isPlyometric": true, "note": "Quick, quiet ground contacts. Stay on the balls of your feet." },
+            { "name": "Wall Sit", "sets": 3, "reps": "30s", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "bw-w1-d2",
+          "dayLabel": "Day 2",
+          "name": "Foundation B",
+          "exercises": [
+            { "name": "Reverse Lunge", "sets": 3, "reps": "10/leg", "restSeconds": 60, "isPlyometric": false, "note": null },
+            { "name": "Calf Raise", "sets": 3, "reps": "15", "restSeconds": 30, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 3, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Land soft and hold the landing for 2 seconds before resetting." },
+            { "name": "Plank", "sets": 3, "reps": "30s", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 2,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "bw-w2-d1",
+          "dayLabel": "Day 1",
+          "name": "Foundation A",
+          "exercises": [
+            { "name": "Bodyweight Squat", "sets": 3, "reps": "15", "restSeconds": 60, "isPlyometric": false, "note": "Full depth, control the descent." },
+            { "name": "Glute Bridge", "sets": 3, "reps": "18", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 3, "reps": "20", "restSeconds": 45, "isPlyometric": true, "note": "Quick, quiet ground contacts. Stay on the balls of your feet." },
+            { "name": "Wall Sit", "sets": 3, "reps": "40s", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "bw-w2-d2",
+          "dayLabel": "Day 2",
+          "name": "Foundation B",
+          "exercises": [
+            { "name": "Reverse Lunge", "sets": 3, "reps": "12/leg", "restSeconds": 60, "isPlyometric": false, "note": null },
+            { "name": "Calf Raise", "sets": 3, "reps": "18", "restSeconds": 30, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 4, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Land soft and hold the landing for 2 seconds before resetting." },
+            { "name": "Plank", "sets": 3, "reps": "40s", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 3,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "bw-w3-d1",
+          "dayLabel": "Day 1",
+          "name": "Foundation A",
+          "exercises": [
+            { "name": "Bodyweight Squat", "sets": 4, "reps": "15", "restSeconds": 60, "isPlyometric": false, "note": "Full depth, control the descent." },
+            { "name": "Single-Leg Glute Bridge", "sets": 3, "reps": "12/leg", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 4, "reps": "20", "restSeconds": 45, "isPlyometric": true, "note": "Quick, quiet ground contacts. Stay on the balls of your feet." },
+            { "name": "Wall Sit", "sets": 3, "reps": "45s", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "bw-w3-d2",
+          "dayLabel": "Day 2",
+          "name": "Foundation B",
+          "exercises": [
+            { "name": "Reverse Lunge", "sets": 4, "reps": "12/leg", "restSeconds": 60, "isPlyometric": false, "note": null },
+            { "name": "Calf Raise", "sets": 3, "reps": "20", "restSeconds": 30, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 4, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Land soft and hold the landing for 2 seconds before resetting." },
+            { "name": "Side Plank", "sets": 3, "reps": "30s/side", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 4,
+      "isDeload": true,
+      "sessions": [
+        {
+          "id": "bw-w4-d1",
+          "dayLabel": "Day 1",
+          "name": "Deload A",
+          "exercises": [
+            { "name": "Bodyweight Squat", "sets": 2, "reps": "10", "restSeconds": 60, "isPlyometric": false, "note": "Lighter week. Focus on form, not fatigue." },
+            { "name": "Glute Bridge", "sets": 2, "reps": "12", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 2, "reps": "12", "restSeconds": 45, "isPlyometric": true, "note": "Easy, controlled. This is a recovery week." }
+          ]
+        },
+        {
+          "id": "bw-w4-d2",
+          "dayLabel": "Day 2",
+          "name": "Retest Day",
+          "exercises": [
+            { "name": "Light Mobility Flow", "sets": 1, "reps": "10 min", "restSeconds": 0, "isPlyometric": false, "note": "Hips, ankles, calves." },
+            { "name": "Measured Retest Jump", "sets": 3, "reps": "1", "restSeconds": 120, "isPlyometric": false, "note": "Take your retest measurement in the app today." }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "id": "intermediate-gym",
+  "name": "Intermediate Gym",
+  "summary": "Heavier strength work paired with progressive plyometrics for lifters who already have a training base.",
+  "equipmentLevel": "fullGym",
+  "experienceLevel": "some",
+  "focus": "standing",
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "ig-w1-d1",
+          "dayLabel": "Day 1",
+          "name": "Squat Strength",
+          "exercises": [
+            { "name": "Back Squat", "sets": 4, "reps": "6", "restSeconds": 120, "isPlyometric": false, "note": "Heavy but leave 2 reps in the tank." },
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "8", "restSeconds": 90, "isPlyometric": false, "note": null },
+            { "name": "Box Jump", "sets": 4, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Step down between reps, don't jump down." },
+            { "name": "Weighted Calf Raise", "sets": 3, "reps": "12", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "ig-w1-d2",
+          "dayLabel": "Day 2",
+          "name": "Power + Core",
+          "exercises": [
+            { "name": "Trap Bar Jump", "sets": 4, "reps": "5", "restSeconds": 120, "isPlyometric": true, "note": "Light load, maximum intent. This is a speed-strength movement." },
+            { "name": "Bulgarian Split Squat", "sets": 3, "reps": "8/leg", "restSeconds": 90, "isPlyometric": false, "note": null },
+            { "name": "Depth Drop to Stick", "sets": 3, "reps": "4", "restSeconds": 90, "isPlyometric": true, "note": "Step off a low box, absorb the landing. No rebound jump yet." },
+            { "name": "Hanging Leg Raise", "sets": 3, "reps": "10", "restSeconds": 60, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "ig-w1-d3",
+          "dayLabel": "Day 3",
+          "name": "Posterior Chain Strength",
+          "exercises": [
+            { "name": "Deadlift", "sets": 4, "reps": "5", "restSeconds": 120, "isPlyometric": false, "note": null },
+            { "name": "Walking Lunge", "sets": 3, "reps": "10/leg", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 3, "reps": "20", "restSeconds": 45, "isPlyometric": true, "note": "Minimal ground contact time." }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 2,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "ig-w2-d1",
+          "dayLabel": "Day 1",
+          "name": "Squat Strength",
+          "exercises": [
+            { "name": "Back Squat", "sets": 4, "reps": "5", "restSeconds": 120, "isPlyometric": false, "note": "Add a small amount of load from last week." },
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "8", "restSeconds": 90, "isPlyometric": false, "note": null },
+            { "name": "Box Jump", "sets": 4, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Step down between reps, don't jump down." },
+            { "name": "Weighted Calf Raise", "sets": 3, "reps": "12", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "ig-w2-d2",
+          "dayLabel": "Day 2",
+          "name": "Power + Core",
+          "exercises": [
+            { "name": "Trap Bar Jump", "sets": 5, "reps": "5", "restSeconds": 120, "isPlyometric": true, "note": "Light load, maximum intent." },
+            { "name": "Bulgarian Split Squat", "sets": 3, "reps": "10/leg", "restSeconds": 90, "isPlyometric": false, "note": null },
+            { "name": "Depth Drop to Stick", "sets": 4, "reps": "4", "restSeconds": 90, "isPlyometric": true, "note": "Step off a low box, absorb the landing." },
+            { "name": "Hanging Leg Raise", "sets": 3, "reps": "12", "restSeconds": 60, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "ig-w2-d3",
+          "dayLabel": "Day 3",
+          "name": "Posterior Chain Strength",
+          "exercises": [
+            { "name": "Deadlift", "sets": 4, "reps": "5", "restSeconds": 120, "isPlyometric": false, "note": null },
+            { "name": "Walking Lunge", "sets": 3, "reps": "12/leg", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 4, "reps": "20", "restSeconds": 45, "isPlyometric": true, "note": "Minimal ground contact time." }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 3,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "ig-w3-d1",
+          "dayLabel": "Day 1",
+          "name": "Squat Strength",
+          "exercises": [
+            { "name": "Back Squat", "sets": 5, "reps": "5", "restSeconds": 120, "isPlyometric": false, "note": "This week's heaviest top set." },
+            { "name": "Romanian Deadlift", "sets": 3, "reps": "8", "restSeconds": 90, "isPlyometric": false, "note": null },
+            { "name": "Box Jump", "sets": 5, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Step down between reps." },
+            { "name": "Weighted Calf Raise", "sets": 4, "reps": "12", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "ig-w3-d2",
+          "dayLabel": "Day 2",
+          "name": "Power + Core",
+          "exercises": [
+            { "name": "Trap Bar Jump", "sets": 5, "reps": "5", "restSeconds": 120, "isPlyometric": true, "note": "Light load, maximum intent." },
+            { "name": "Bulgarian Split Squat", "sets": 4, "reps": "10/leg", "restSeconds": 90, "isPlyometric": false, "note": null },
+            { "name": "Depth Drop to Stick", "sets": 4, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Step off a low box, absorb the landing." },
+            { "name": "Hanging Leg Raise", "sets": 4, "reps": "12", "restSeconds": 60, "isPlyometric": false, "note": null }
+          ]
+        },
+        {
+          "id": "ig-w3-d3",
+          "dayLabel": "Day 3",
+          "name": "Posterior Chain Strength",
+          "exercises": [
+            { "name": "Deadlift", "sets": 5, "reps": "5", "restSeconds": 120, "isPlyometric": false, "note": null },
+            { "name": "Walking Lunge", "sets": 4, "reps": "12/leg", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 4, "reps": "25", "restSeconds": 45, "isPlyometric": true, "note": "Minimal ground contact time." }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 4,
+      "isDeload": true,
+      "sessions": [
+        {
+          "id": "ig-w4-d1",
+          "dayLabel": "Day 1",
+          "name": "Squat Deload",
+          "exercises": [
+            { "name": "Back Squat", "sets": 2, "reps": "5", "restSeconds": 120, "isPlyometric": false, "note": "Light load, recovery week." },
+            { "name": "Box Jump", "sets": 2, "reps": "4", "restSeconds": 90, "isPlyometric": true, "note": "Easy, controlled." }
+          ]
+        },
+        {
+          "id": "ig-w4-d2",
+          "dayLabel": "Day 2",
+          "name": "Power Deload",
+          "exercises": [
+            { "name": "Trap Bar Jump", "sets": 2, "reps": "4", "restSeconds": 120, "isPlyometric": true, "note": "Light load, recovery week." },
+            { "name": "Mobility Flow", "sets": 1, "reps": "10 min", "restSeconds": 0, "isPlyometric": false, "note": "Hips, ankles, calves." }
+          ]
+        },
+        {
+          "id": "ig-w4-d3",
+          "dayLabel": "Day 3",
+          "name": "Retest Day",
+          "exercises": [
+            { "name": "Measured Retest Jump", "sets": 3, "reps": "1", "restSeconds": 120, "isPlyometric": false, "note": "Take your retest measurement in the app today." }
+          ]
+        }
+      ]
+    }
+  ]
+}

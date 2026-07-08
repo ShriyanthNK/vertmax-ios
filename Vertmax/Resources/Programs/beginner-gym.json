@@ -1,0 +1,119 @@
+{
+  "id": "beginner-gym",
+  "name": "Beginner Gym",
+  "summary": "Basic strength work plus a conservative dose of plyometrics, using dumbbells and bands.",
+  "equipmentLevel": "basic",
+  "experienceLevel": "new",
+  "focus": "standing",
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "bg-w1-d1",
+          "dayLabel": "Day 1",
+          "name": "Strength A",
+          "exercises": [
+            { "name": "Goblet Squat", "sets": 3, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": "Dumbbell held at chest, full depth." },
+            { "name": "Romanian Deadlift (Dumbbell)", "sets": 3, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Banded Lateral Walk", "sets": 3, "reps": "10/side", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 3, "reps": "15", "restSeconds": 45, "isPlyometric": true, "note": "Stay on the balls of your feet, minimal ground contact." }
+          ]
+        },
+        {
+          "id": "bg-w1-d2",
+          "dayLabel": "Day 2",
+          "name": "Strength B",
+          "exercises": [
+            { "name": "Dumbbell Step-Up", "sets": 3, "reps": "8/leg", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Standing Calf Raise (Dumbbell)", "sets": 3, "reps": "15", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 3, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Land soft, hold each landing for 2 seconds." },
+            { "name": "Dead Bug", "sets": 3, "reps": "10/side", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 2,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "bg-w2-d1",
+          "dayLabel": "Day 1",
+          "name": "Strength A",
+          "exercises": [
+            { "name": "Goblet Squat", "sets": 4, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": "Dumbbell held at chest, full depth." },
+            { "name": "Romanian Deadlift (Dumbbell)", "sets": 4, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Banded Lateral Walk", "sets": 3, "reps": "12/side", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 4, "reps": "18", "restSeconds": 45, "isPlyometric": true, "note": "Stay on the balls of your feet, minimal ground contact." }
+          ]
+        },
+        {
+          "id": "bg-w2-d2",
+          "dayLabel": "Day 2",
+          "name": "Strength B",
+          "exercises": [
+            { "name": "Dumbbell Step-Up", "sets": 4, "reps": "8/leg", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Standing Calf Raise (Dumbbell)", "sets": 3, "reps": "18", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 4, "reps": "5", "restSeconds": 90, "isPlyometric": true, "note": "Land soft, hold each landing for 2 seconds." },
+            { "name": "Dead Bug", "sets": 3, "reps": "12/side", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 3,
+      "isDeload": false,
+      "sessions": [
+        {
+          "id": "bg-w3-d1",
+          "dayLabel": "Day 1",
+          "name": "Strength A",
+          "exercises": [
+            { "name": "Goblet Squat", "sets": 4, "reps": "12", "restSeconds": 75, "isPlyometric": false, "note": "Dumbbell held at chest, full depth." },
+            { "name": "Romanian Deadlift (Dumbbell)", "sets": 4, "reps": "12", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Banded Lateral Walk", "sets": 3, "reps": "15/side", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 4, "reps": "20", "restSeconds": 45, "isPlyometric": true, "note": "Stay on the balls of your feet, minimal ground contact." }
+          ]
+        },
+        {
+          "id": "bg-w3-d2",
+          "dayLabel": "Day 2",
+          "name": "Strength B",
+          "exercises": [
+            { "name": "Dumbbell Step-Up", "sets": 4, "reps": "10/leg", "restSeconds": 75, "isPlyometric": false, "note": null },
+            { "name": "Standing Calf Raise (Dumbbell)", "sets": 4, "reps": "18", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Broad Jump", "sets": 4, "reps": "6", "restSeconds": 90, "isPlyometric": true, "note": "Land soft, hold each landing for 2 seconds." },
+            { "name": "Dead Bug", "sets": 3, "reps": "12/side", "restSeconds": 45, "isPlyometric": false, "note": null }
+          ]
+        }
+      ]
+    },
+    {
+      "weekNumber": 4,
+      "isDeload": true,
+      "sessions": [
+        {
+          "id": "bg-w4-d1",
+          "dayLabel": "Day 1",
+          "name": "Deload A",
+          "exercises": [
+            { "name": "Goblet Squat", "sets": 2, "reps": "10", "restSeconds": 75, "isPlyometric": false, "note": "Lighter week. Focus on form, not fatigue." },
+            { "name": "Banded Lateral Walk", "sets": 2, "reps": "10/side", "restSeconds": 45, "isPlyometric": false, "note": null },
+            { "name": "Pogo Hops", "sets": 2, "reps": "12", "restSeconds": 45, "isPlyometric": true, "note": "Easy, controlled. This is a recovery week." }
+          ]
+        },
+        {
+          "id": "bg-w4-d2",
+          "dayLabel": "Day 2",
+          "name": "Retest Day",
+          "exercises": [
+            { "name": "Light Mobility Flow", "sets": 1, "reps": "10 min", "restSeconds": 0, "isPlyometric": false, "note": "Hips, ankles, calves." },
+            { "name": "Measured Retest Jump", "sets": 3, "reps": "1", "restSeconds": 120, "isPlyometric": false, "note": "Take your retest measurement in the app today." }
+          ]
+        }
+      ]
+    }
+  ]
+}
