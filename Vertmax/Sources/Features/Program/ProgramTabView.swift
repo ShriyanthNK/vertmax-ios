@@ -14,9 +14,16 @@ struct ProgramTabView: View {
 
     private var profile: UserProfile? { profiles.first }
 
-    private var assignedProgram: Program? {
-        profile.flatMap { ProgramResolver.resolve(id: $0.assignedProgramID, customPrograms: customPrograms) }
+    /// Resolved program with the auto-progression layer applied — see
+    /// ProgramProgression for what that does and why it's conservative.
+    private var progression: ProgramProgression.Result? {
+        guard let profile, let base = ProgramResolver.resolve(id: profile.assignedProgramID, customPrograms: customPrograms) else {
+            return nil
+        }
+        return ProgramProgression.applied(to: base, completions: completions)
     }
+
+    private var assignedProgram: Program? { progression?.program }
 
     /// First session, in week/day order, with no completion record yet.
     private var upNext: (week: ProgramWeek, session: ProgramSession)? {
@@ -41,13 +48,17 @@ struct ProgramTabView: View {
                             programHeader(assignedProgram)
 
                             if let upNext {
-                                upNextCard(upNext.week, upNext.session)
+                                upNextCard(
+                                    upNext.week,
+                                    upNext.session,
+                                    isBoosted: progression?.boostedWeeks.contains(upNext.week.weekNumber) ?? false
+                                )
                             } else {
                                 allDoneCard
                             }
 
                             NavigationLink {
-                                ProgramView(program: assignedProgram)
+                                ProgramView(program: assignedProgram, boostedWeeks: progression?.boostedWeeks ?? [])
                             } label: {
                                 HStack {
                                     Text("View Full Schedule")
@@ -58,9 +69,9 @@ struct ProgramTabView: View {
                                         .foregroundStyle(.textMuted)
                                 }
                                 .padding(Spacing.md)
-                                .background(Color.surface)
-                                .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
+                                .cardStyle()
                             }
+                            .pressableRow()
                         }
                         .padding(Spacing.lg)
                     }
@@ -91,7 +102,7 @@ struct ProgramTabView: View {
     private func programHeader(_ program: Program) -> some View {
         VStack(alignment: .leading, spacing: Spacing.xxs) {
             Text(program.name)
-                .font(VertFont.title)
+                .font(VertFont.screenTitle)
                 .foregroundStyle(.textPrimary)
             Text(program.summary)
                 .font(VertFont.caption)
@@ -100,11 +111,12 @@ struct ProgramTabView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    private func upNextCard(_ week: ProgramWeek, _ session: ProgramSession) -> some View {
+    private func upNextCard(_ week: ProgramWeek, _ session: ProgramSession, isBoosted: Bool) -> some View {
         VStack(alignment: .leading, spacing: Spacing.sm) {
             Text("UP NEXT")
-                .font(VertFont.body(11, weight: .bold))
+                .font(VertFont.eyebrow)
                 .foregroundStyle(.voltGreen)
+                .eyebrowTracking()
 
             Text(session.name)
                 .font(VertFont.headline)
@@ -112,12 +124,15 @@ struct ProgramTabView: View {
             Text(week.isDeload ? "\(session.dayLabel) · Week \(week.weekNumber) (Deload)" : "\(session.dayLabel) · Week \(week.weekNumber)")
                 .font(VertFont.caption)
                 .foregroundStyle(.textMuted)
+            if isBoosted {
+                Label("Volume up — last week fully completed", systemImage: "arrow.up.forward")
+                    .font(VertFont.caption)
+                    .foregroundStyle(.voltGreen)
+            }
 
             VStack(alignment: .leading, spacing: Spacing.xxs) {
                 ForEach(session.exercises.prefix(4)) { exercise in
-                    Text("• \(exercise.name) · \(exercise.sets)×\(exercise.reps)")
-                        .font(VertFont.caption)
-                        .foregroundStyle(.textMuted)
+                    ExerciseSummaryRow(name: exercise.name, sets: exercise.sets, reps: exercise.reps)
                 }
                 if session.exercises.count > 4 {
                     Text("+ \(session.exercises.count - 4) more")
@@ -129,12 +144,7 @@ struct ProgramTabView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Spacing.lg)
-        .background(Color.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
-        .overlay(
-            RoundedRectangle(cornerRadius: Radius.lg)
-                .strokeBorder(Color.voltGreen.opacity(0.4), lineWidth: 1.5)
-        )
+        .cardStyle(accent: .voltGreen)
     }
 
     private var allDoneCard: some View {
@@ -149,8 +159,7 @@ struct ProgramTabView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(Spacing.lg)
-        .background(Color.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
+        .cardStyle(accent: .voltGreen)
     }
 
     private var emptyState: some View {
@@ -162,9 +171,8 @@ struct ProgramTabView: View {
                 .font(VertFont.headline)
                 .foregroundStyle(.textPrimary)
             Button("Choose a Program") { showBrowser = true }
-                .buttonStyle(.borderedProminent)
-                .tint(.voltGreen)
-                .foregroundStyle(.ink)
+                .buttonStyle(VoltButtonStyle())
+                .padding(.horizontal, Spacing.xl)
         }
     }
 }

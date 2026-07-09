@@ -7,11 +7,20 @@ struct CoachView: View {
         NavigationStack {
             ZStack {
                 Color.ink.ignoresSafeArea()
-                VStack(spacing: Spacing.xs) {
+                VStack(spacing: Spacing.sm) {
                     Image(systemName: "bubble.left.and.bubble.right.fill")
-                        .font(.system(size: 40))
+                        .font(.system(size: 32))
                         .foregroundStyle(.textMuted)
-                    Text("Coach is coming soon")
+                        .padding(Spacing.md)
+                        .background(Circle().fill(Color.surface))
+
+                    Text("COMING SOON")
+                        .font(VertFont.eyebrow)
+                        .foregroundStyle(.voltGreen)
+                        .eyebrowTracking()
+                        .padding(.top, Spacing.xs)
+
+                    Text("Coach")
                         .font(VertFont.headline)
                         .foregroundStyle(.textPrimary)
                     Text("Your AI coach will answer training questions and explain your program here.")

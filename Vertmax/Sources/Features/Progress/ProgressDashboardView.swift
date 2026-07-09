@@ -28,10 +28,31 @@ struct ProgressDashboardView: View {
                     List {
                         Section {
                             Chart(measurements) { m in
+                                AreaMark(x: .value("Date", m.date), y: .value("Inches", m.heightInches))
+                                    .foregroundStyle(
+                                        LinearGradient(
+                                            colors: [Color.voltGreen.opacity(0.22), Color.voltGreen.opacity(0)],
+                                            startPoint: .top,
+                                            endPoint: .bottom
+                                        )
+                                    )
                                 LineMark(x: .value("Date", m.date), y: .value("Inches", m.heightInches))
                                     .foregroundStyle(Color.voltGreen)
+                                    .lineStyle(StrokeStyle(lineWidth: 2.5, lineJoin: .round))
                                 PointMark(x: .value("Date", m.date), y: .value("Inches", m.heightInches))
                                     .foregroundStyle(Color.voltGreen)
+                            }
+                            .chartXAxis {
+                                AxisMarks { _ in
+                                    AxisGridLine().foregroundStyle(Color.white.opacity(0.06))
+                                    AxisValueLabel().foregroundStyle(Color.textMuted)
+                                }
+                            }
+                            .chartYAxis {
+                                AxisMarks { _ in
+                                    AxisGridLine().foregroundStyle(Color.white.opacity(0.06))
+                                    AxisValueLabel().foregroundStyle(Color.textMuted)
+                                }
                             }
                             .frame(height: 220)
                             .listRowBackground(Color.surface)
@@ -42,7 +63,7 @@ struct ProgressDashboardView: View {
                                 HStack {
                                     VStack(alignment: .leading, spacing: Spacing.xxs) {
                                         Text(String(format: "%.1f in", m.heightInches))
-                                            .font(VertFont.body(17, weight: .semibold))
+                                            .font(VertFont.numeric(17, weight: .semibold))
                                             .foregroundStyle(.textPrimary)
                                         Text(m.jumpType == .standing ? "Standing" : "Approach")
                                             .font(VertFont.caption)

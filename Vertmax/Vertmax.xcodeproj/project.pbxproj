@@ -8,80 +8,149 @@
 
 /* Begin PBXBuildFile section */
 		05E1206D35421D75B6B464AB /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9EA8D51F683958047E4FD4 /* Spacing.swift */; };
+		09252EF9EFF3199BE7BA7552 /* Archivo-OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63A0024DE5D83B6836E6BC47 /* Archivo-OFL.txt */; };
+		0DA407030C538DC6930FF194 /* IBMPlexMono-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBD26452EC459DE4BA495D05 /* IBMPlexMono-SemiBold.ttf */; };
 		1AD03571D6A8C854DA62F52D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864EC8C6618B8CBA8F652FDE /* ProfileView.swift */; };
 		24FBF9A41013F594808A5087 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F093298C45459E58D864A18 /* Program.swift */; };
 		26200E87BDDFB1D22C929085 /* VertmaxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B0B94A463351A98CFE29D1 /* VertmaxApp.swift */; };
+		27BBFBE098A0CB2DB8723685 /* ShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237FCEE2A69247632D2133A9 /* ShareCardView.swift */; };
 		2FE93E2207213C3B276EFBE3 /* OnboardingFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E53B896AA4086F507F6431 /* OnboardingFlowView.swift */; };
 		317F0C5FD90D1C9B65AA5974 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B257AC8E1998492F753B2A1 /* CameraService.swift */; };
 		395BC3B92CF2BFC6360419B0 /* ExerciseLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5613B79B3702B9713758A414 /* ExerciseLibrary.swift */; };
+		3A037A7D6D645F4A04F7B1B5 /* IBMPlexMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 810855A73A4B54A634015A75 /* IBMPlexMono-Regular.ttf */; };
 		3E104724CE777529DC39F08D /* MeasurementFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764A8B106450862AE104C9BA /* MeasurementFlowView.swift */; };
 		3EE9F15A66922D42CFC36955 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549B78E3C6BD3BE671D1F6A /* Typography.swift */; };
+		434E96AE86792FDE5CA166F0 /* Chrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F05565EED7523301EB7EE09 /* Chrome.swift */; };
 		436F4CF7B4B89B97915FE405 /* ProgramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D22C2BE579368274C714D6 /* ProgramView.swift */; };
+		458C46C9EA3AFCCD4EF1DC6C /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5093C90EEAAB2F18365325 /* WidgetSnapshot.swift */; };
+		47E5080C69F70C7F70563753 /* TrajectoryArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713CB8E6298174399DDAE4C0 /* TrajectoryArc.swift */; };
+		4A836267C1FD75FF1B9C5071 /* IBMPlexMono-OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = BEAD9CC87D6216FAA36936A1 /* IBMPlexMono-OFL.txt */; };
+		4A8468982C0D49CD588ADB7D /* IBMPlexMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E89AFCDEA5FB11E9A6FC3E2B /* IBMPlexMono-Bold.ttf */; };
 		4AED35C107F6A520CAB1A412 /* MeasurementResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD66D9A207D258263979D /* MeasurementResultView.swift */; };
+		4C03225163003DF514AE7CF2 /* StreakCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAAEC19BB06F53D0F04830 /* StreakCalculator.swift */; };
 		4D5EEE9F77C13AA09590EF3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A931200DF38071E9C946DE88 /* Assets.xcassets */; };
+		54A6A25F7A887FDD1408E19F /* VertmaxWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F35A72F2248F5BB20E28A2 /* VertmaxWidget.swift */; };
 		567A2F25D658AD083A86F96F /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB8C2BE0B37BD5D55EC177 /* UserProfile.swift */; };
+		5D0FEEC0D2AE5DE61A63D751 /* VertmaxWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5350A0D24A572352C084353 /* VertmaxWidgetProvider.swift */; };
 		626607843B10D27EF1BBA4AA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379D31DD56A27C65FC4E219 /* Colors.swift */; };
+		62E31A81F7C17C0369303D16 /* VertmaxLogoMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D86088BF9327417107129F4 /* VertmaxLogoMark.swift */; };
 		6A755635F57FEEA8A385CF2C /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715AC28A9487FEA6DC1B449 /* CameraPreviewView.swift */; };
+		6CFC0E764F8A414153F3CAB0 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9EA8D51F683958047E4FD4 /* Spacing.swift */; };
+		728A3FD103B8FA96E86D1617 /* ArchivoBlack-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1A2C119EE4710A4E48C975B /* ArchivoBlack-Regular.ttf */; };
 		75A0CACAED7C5B9A5C5503A4 /* SessionCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481FEAE087406ABACB47CD2 /* SessionCompletion.swift */; };
+		768B2051B7CFF89E74E2797D /* IBMPlexMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8A5C3B500BFF17BACE8A898 /* IBMPlexMono-Medium.ttf */; };
 		7A2B37993ED3510FEA7FB9B9 /* ProgramRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC79AB85116E8C42CC47D56F /* ProgramRouter.swift */; };
+		7B5D4307C37B84BA894D3589 /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F651D87E1F1D1C14332B126 /* Motion.swift */; };
+		8264569C86741E78AEE2D01F /* WidgetSnapshotRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFCFFFD8072CC1131FDC333 /* WidgetSnapshotRefresher.swift */; };
 		85EE43D63C2106CA39EB1C5A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1F6F44674523ADBF9B51A8 /* HomeView.swift */; };
+		8710D22EAE283C2B42CC24A1 /* IBMPlexMono-OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = BEAD9CC87D6216FAA36936A1 /* IBMPlexMono-OFL.txt */; };
 		8B335D1E6F022C49AD4C0AC9 /* ExerciseLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14B9EC88C95065CE25F31E8 /* ExerciseLibraryView.swift */; };
+		90AE0EA8786DA4443FDC4503 /* ExerciseSummaryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681D466151D1455B46D9B8F3 /* ExerciseSummaryRow.swift */; };
+		912B83934C19B7F18074C3B2 /* VertmaxWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A0760FAD81B9E48EEAB661 /* VertmaxWidgetView.swift */; };
 		919D7091B35BF9BB072ABB96 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A41C10F3E92DA8B05AB839 /* SupabaseManager.swift */; };
 		93A1BC1299AC4BBA09E7A7CD /* ProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914D4DF54548FCD37560477 /* ProgressDashboardView.swift */; };
 		98396E89C150B4D44F819D24 /* ProgramLibraryBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956B75C9B4FD9316EEEEA6D3 /* ProgramLibraryBrowserView.swift */; };
+		9E3FBC67687EA800C23B5BD1 /* ArchivoBlack-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1A2C119EE4710A4E48C975B /* ArchivoBlack-Regular.ttf */; };
+		9F079D88EF0447A7E77E206E /* IBMPlexMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8A5C3B500BFF17BACE8A898 /* IBMPlexMono-Medium.ttf */; };
+		A02086CB6C00DF8C4DEE2EB6 /* IBMPlexMono-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBD26452EC459DE4BA495D05 /* IBMPlexMono-SemiBold.ttf */; };
 		A23CC672A98A5333C953CBA9 /* ProgramLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397641BC859D2AF964679D7E /* ProgramLibrary.swift */; };
 		A5F534DCE4E83562AC102390 /* JumpMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90225ACF4FEECC24A8746D13 /* JumpMeasurement.swift */; };
 		A8025DA67C25A495605B1818 /* beginner-bodyweight.json in Resources */ = {isa = PBXBuildFile; fileRef = AEDC91D23B2998E0A96F2556 /* beginner-bodyweight.json */; };
+		AB041241A2DD55EDEEBA9758 /* TrajectoryArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713CB8E6298174399DDAE4C0 /* TrajectoryArc.swift */; };
 		AC5566BC4C05B9B0CC785013 /* JumpAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D62477BE9EC8EF41DDB91F7 /* JumpAnalyzer.swift */; };
+		ACD6AEADBA7B1A68DE3D5AE7 /* IBMPlexMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 810855A73A4B54A634015A75 /* IBMPlexMono-Regular.ttf */; };
+		AD2887363C950587116AF422 /* Archivo-OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63A0024DE5D83B6836E6BC47 /* Archivo-OFL.txt */; };
 		AE2839CBAC605EDA050CFF10 /* in-season-maintenance.json in Resources */ = {isa = PBXBuildFile; fileRef = F60BF1B6AA7B10605B464089 /* in-season-maintenance.json */; };
 		AEBFCBBEADBCC654F21AE5DE /* CoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43143600E4079C1E799C53EE /* CoachView.swift */; };
 		B370FE1B01A8D64E16942C12 /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624CB41F4F54E8796598F46 /* RootTabView.swift */; };
 		B48D462DF77AE9EEAE1F723A /* VertmaxLogoMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D86088BF9327417107129F4 /* VertmaxLogoMark.swift */; };
 		B6FBF2F2800E58E2AE1C39F8 /* ManualEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D070E35B00FCC85D563691B /* ManualEntryView.swift */; };
 		C11E29A996C9B8A493B619D0 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA9E5087AAB11F5BB63E7B9 /* SignInView.swift */; };
+		C1688469BEEF383BDBA2D786 /* VertmaxWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3DF03DE1C64BF17E5C65D856 /* VertmaxWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CBD5085EBBCE2540D5FC5EB8 /* OnboardingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61438C237E9DC1563351BA84 /* OnboardingModels.swift */; };
+		D293B74303221597BE8410D5 /* IBMPlexMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E89AFCDEA5FB11E9A6FC3E2B /* IBMPlexMono-Bold.ttf */; };
+		D969AD7AC5C0413F462D192C /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549B78E3C6BD3BE671D1F6A /* Typography.swift */; };
 		DB50A4B8283495095942779C /* beginner-gym.json in Resources */ = {isa = PBXBuildFile; fileRef = 06065A81408A5A6B5F3C677F /* beginner-gym.json */; };
 		E035B9BCCB444590FBD79FE5 /* ProgramTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9DEE0EAB5747A356D810E7 /* ProgramTabView.swift */; };
 		E17CCBB0A58B490957410A37 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD2A09572012C76FF86D724 /* Exercise.swift */; };
 		E656EF4E7CFAB92FACF32209 /* approach-jump-focus.json in Resources */ = {isa = PBXBuildFile; fileRef = B79F972BD08E8149A22F3C3C /* approach-jump-focus.json */; };
 		E6F34CA13FB7ADB3F188702F /* CameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244347AE1211EF66B928CD0 /* CameraCaptureView.swift */; };
+		EAD78409F99D02F725678671 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379D31DD56A27C65FC4E219 /* Colors.swift */; };
 		EAEA36C66AB8EA0351ADF1C2 /* ProfileToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F8CB3AFCA7134B8B4EEDFB /* ProfileToolbar.swift */; };
 		EBB9F777B77586815106FA18 /* exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = CB93D30207E5442D2C4D44E2 /* exercises.json */; };
 		ED78C81909ED71D06203A052 /* CustomProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372890B601A3FA483CE3FAC7 /* CustomProgram.swift */; };
 		EFB8CBCA3C9EF2C6024598A7 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 7D3BF9FC672D069CA4220DD6 /* Supabase */; };
 		F29CE1D74C69E76ECCAB061D /* ProgramResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72844551E330F9B3795C366F /* ProgramResolver.swift */; };
+		F50D9DD7389A89667E2AE8D2 /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5093C90EEAAB2F18365325 /* WidgetSnapshot.swift */; };
 		FA7BBC66A803C198115F74BD /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B01A688F642C3CE8B3A938 /* PersistenceController.swift */; };
 		FB6025A61EC0629AD6F8D3FF /* intermediate-gym.json in Resources */ = {isa = PBXBuildFile; fileRef = E83B130312D6320A155C9FA5 /* intermediate-gym.json */; };
 		FBB49386CAC8BDC8C14E23E2 /* ProgramBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08ADDE5723498C2C4280BA42 /* ProgramBuilderView.swift */; };
+		FF619AADF5F65CCBE79B483D /* ProgramProgression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B703A97A8EEFA1AF6CB90E /* ProgramProgression.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0DB1CF388E5DCC776F735C58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 251BC626D71BE18F3FB8EF8C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AEC2D33B0E3BA2E141805CC0;
+			remoteInfo = VertmaxWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0858B7ECE53CB2AA073E93E8 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C1688469BEEF383BDBA2D786 /* VertmaxWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		06065A81408A5A6B5F3C677F /* beginner-gym.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "beginner-gym.json"; sourceTree = "<group>"; };
 		08ADDE5723498C2C4280BA42 /* ProgramBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramBuilderView.swift; sourceTree = "<group>"; };
 		0D070E35B00FCC85D563691B /* ManualEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryView.swift; sourceTree = "<group>"; };
+		0F651D87E1F1D1C14332B126 /* Motion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
 		17D22C2BE579368274C714D6 /* ProgramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramView.swift; sourceTree = "<group>"; };
 		1F1F6F44674523ADBF9B51A8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		237FCEE2A69247632D2133A9 /* ShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardView.swift; sourceTree = "<group>"; };
 		28F8CB3AFCA7134B8B4EEDFB /* ProfileToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileToolbar.swift; sourceTree = "<group>"; };
 		2914D4DF54548FCD37560477 /* ProgressDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardView.swift; sourceTree = "<group>"; };
 		3244347AE1211EF66B928CD0 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
+		33B703A97A8EEFA1AF6CB90E /* ProgramProgression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramProgression.swift; sourceTree = "<group>"; };
 		35AE02367677786052E19130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		372890B601A3FA483CE3FAC7 /* CustomProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgram.swift; sourceTree = "<group>"; };
 		397641BC859D2AF964679D7E /* ProgramLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramLibrary.swift; sourceTree = "<group>"; };
 		3D62477BE9EC8EF41DDB91F7 /* JumpAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpAnalyzer.swift; sourceTree = "<group>"; };
+		3DF03DE1C64BF17E5C65D856 /* VertmaxWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = VertmaxWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4035F7C0BABAB45BEA4900AB /* Vertmax.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vertmax.entitlements; sourceTree = "<group>"; };
 		43143600E4079C1E799C53EE /* CoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachView.swift; sourceTree = "<group>"; };
 		4549B78E3C6BD3BE671D1F6A /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		4A5093C90EEAAB2F18365325 /* WidgetSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshot.swift; sourceTree = "<group>"; };
 		4D86088BF9327417107129F4 /* VertmaxLogoMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertmaxLogoMark.swift; sourceTree = "<group>"; };
 		5613B79B3702B9713758A414 /* ExerciseLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLibrary.swift; sourceTree = "<group>"; };
 		5B257AC8E1998492F753B2A1 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		5F093298C45459E58D864A18 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		61438C237E9DC1563351BA84 /* OnboardingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModels.swift; sourceTree = "<group>"; };
 		62B01A688F642C3CE8B3A938 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		63A0024DE5D83B6836E6BC47 /* Archivo-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Archivo-OFL.txt"; sourceTree = "<group>"; };
+		681D466151D1455B46D9B8F3 /* ExerciseSummaryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSummaryRow.swift; sourceTree = "<group>"; };
 		6CD2A09572012C76FF86D724 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
-		6D5D851D8C9F7947FEC6A2AF /* Vertmax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vertmax.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D5D851D8C9F7947FEC6A2AF /* Vertmax.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Vertmax.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EFCFFFD8072CC1131FDC333 /* WidgetSnapshotRefresher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshotRefresher.swift; sourceTree = "<group>"; };
+		6F05565EED7523301EB7EE09 /* Chrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chrome.swift; sourceTree = "<group>"; };
+		713CB8E6298174399DDAE4C0 /* TrajectoryArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrajectoryArc.swift; sourceTree = "<group>"; };
 		72844551E330F9B3795C366F /* ProgramResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramResolver.swift; sourceTree = "<group>"; };
 		764A8B106450862AE104C9BA /* MeasurementFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementFlowView.swift; sourceTree = "<group>"; };
 		7EA9E5087AAB11F5BB63E7B9 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		7EACD66D9A207D258263979D /* MeasurementResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementResultView.swift; sourceTree = "<group>"; };
+		810855A73A4B54A634015A75 /* IBMPlexMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Regular.ttf"; sourceTree = "<group>"; };
 		864EC8C6618B8CBA8F652FDE /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8715AC28A9487FEA6DC1B449 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		8E9EA8D51F683958047E4FD4 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
@@ -90,16 +159,25 @@
 		9624CB41F4F54E8796598F46 /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
 		97E53B896AA4086F507F6431 /* OnboardingFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowView.swift; sourceTree = "<group>"; };
 		9EBB8C2BE0B37BD5D55EC177 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		A0F35A72F2248F5BB20E28A2 /* VertmaxWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertmaxWidget.swift; sourceTree = "<group>"; };
 		A14B9EC88C95065CE25F31E8 /* ExerciseLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLibraryView.swift; sourceTree = "<group>"; };
+		A5350A0D24A572352C084353 /* VertmaxWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertmaxWidgetProvider.swift; sourceTree = "<group>"; };
 		A931200DF38071E9C946DE88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AEDC91D23B2998E0A96F2556 /* beginner-bodyweight.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "beginner-bodyweight.json"; sourceTree = "<group>"; };
+		B1A2C119EE4710A4E48C975B /* ArchivoBlack-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ArchivoBlack-Regular.ttf"; sourceTree = "<group>"; };
 		B481FEAE087406ABACB47CD2 /* SessionCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCompletion.swift; sourceTree = "<group>"; };
 		B6B0B94A463351A98CFE29D1 /* VertmaxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertmaxApp.swift; sourceTree = "<group>"; };
 		B79F972BD08E8149A22F3C3C /* approach-jump-focus.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "approach-jump-focus.json"; sourceTree = "<group>"; };
+		BEAD9CC87D6216FAA36936A1 /* IBMPlexMono-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "IBMPlexMono-OFL.txt"; sourceTree = "<group>"; };
+		C8A5C3B500BFF17BACE8A898 /* IBMPlexMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Medium.ttf"; sourceTree = "<group>"; };
 		CB93D30207E5442D2C4D44E2 /* exercises.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exercises.json; sourceTree = "<group>"; };
+		D7A0760FAD81B9E48EEAB661 /* VertmaxWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertmaxWidgetView.swift; sourceTree = "<group>"; };
 		D8A41C10F3E92DA8B05AB839 /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
 		DB9DEE0EAB5747A356D810E7 /* ProgramTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramTabView.swift; sourceTree = "<group>"; };
+		E5FAAEC19BB06F53D0F04830 /* StreakCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakCalculator.swift; sourceTree = "<group>"; };
 		E83B130312D6320A155C9FA5 /* intermediate-gym.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "intermediate-gym.json"; sourceTree = "<group>"; };
+		E89AFCDEA5FB11E9A6FC3E2B /* IBMPlexMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Bold.ttf"; sourceTree = "<group>"; };
+		EBD26452EC459DE4BA495D05 /* IBMPlexMono-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-SemiBold.ttf"; sourceTree = "<group>"; };
 		F379D31DD56A27C65FC4E219 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F60BF1B6AA7B10605B464089 /* in-season-maintenance.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "in-season-maintenance.json"; sourceTree = "<group>"; };
 		FC79AB85116E8C42CC47D56F /* ProgramRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramRouter.swift; sourceTree = "<group>"; };
@@ -127,6 +205,20 @@
 				17D22C2BE579368274C714D6 /* ProgramView.swift */,
 			);
 			path = Program;
+			sourceTree = "<group>";
+		};
+		30BDEF6B728FEEA9CEAB2232 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				63A0024DE5D83B6836E6BC47 /* Archivo-OFL.txt */,
+				B1A2C119EE4710A4E48C975B /* ArchivoBlack-Regular.ttf */,
+				E89AFCDEA5FB11E9A6FC3E2B /* IBMPlexMono-Bold.ttf */,
+				C8A5C3B500BFF17BACE8A898 /* IBMPlexMono-Medium.ttf */,
+				BEAD9CC87D6216FAA36936A1 /* IBMPlexMono-OFL.txt */,
+				810855A73A4B54A634015A75 /* IBMPlexMono-Regular.ttf */,
+				EBD26452EC459DE4BA495D05 /* IBMPlexMono-SemiBold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		37C543A9E61AAB1EF536D937 /* Progress */ = {
@@ -162,6 +254,14 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		491210A49FE905506147CAC6 /* WidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				B079FCA352A16FA5A7218721 /* Sources */,
+			);
+			path = WidgetExtension;
+			sourceTree = "<group>";
+		};
 		4AF8D2BD852F3472D17116B5 /* Measurement */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +272,7 @@
 				0D070E35B00FCC85D563691B /* ManualEntryView.swift */,
 				764A8B106450862AE104C9BA /* MeasurementFlowView.swift */,
 				7EACD66D9A207D258263979D /* MeasurementResultView.swift */,
+				237FCEE2A69247632D2133A9 /* ShareCardView.swift */,
 			);
 			path = Measurement;
 			sourceTree = "<group>";
@@ -189,8 +290,11 @@
 			children = (
 				5613B79B3702B9713758A414 /* ExerciseLibrary.swift */,
 				397641BC859D2AF964679D7E /* ProgramLibrary.swift */,
+				33B703A97A8EEFA1AF6CB90E /* ProgramProgression.swift */,
 				72844551E330F9B3795C366F /* ProgramResolver.swift */,
 				FC79AB85116E8C42CC47D56F /* ProgramRouter.swift */,
+				E5FAAEC19BB06F53D0F04830 /* StreakCalculator.swift */,
+				6EFCFFFD8072CC1131FDC333 /* WidgetSnapshotRefresher.swift */,
 				D44D74551AD1501F4BD785A0 /* Models */,
 				46C6271DE32D42AD3C59ADE5 /* Persistence */,
 				B2CD6ACF86B56552D32805A9 /* Supabase */,
@@ -235,9 +339,21 @@
 				A931200DF38071E9C946DE88 /* Assets.xcassets */,
 				CB93D30207E5442D2C4D44E2 /* exercises.json */,
 				35AE02367677786052E19130 /* Info.plist */,
+				4035F7C0BABAB45BEA4900AB /* Vertmax.entitlements */,
+				30BDEF6B728FEEA9CEAB2232 /* Fonts */,
 				E953CBA81A735D7DB0680ABC /* Programs */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		B079FCA352A16FA5A7218721 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A0F35A72F2248F5BB20E28A2 /* VertmaxWidget.swift */,
+				A5350A0D24A572352C084353 /* VertmaxWidgetProvider.swift */,
+				D7A0760FAD81B9E48EEAB661 /* VertmaxWidgetView.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		B2CD6ACF86B56552D32805A9 /* Supabase */ = {
@@ -253,6 +369,7 @@
 			children = (
 				A571FE726385F28CF8801E6B /* Resources */,
 				ECC76BE1FA08BCDAC4969B37 /* Sources */,
+				491210A49FE905506147CAC6 /* WidgetExtension */,
 				D82A129FE00DDF0167B9AB3B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -260,8 +377,12 @@
 		CEAA47DA91866CAE67638C8D /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				6F05565EED7523301EB7EE09 /* Chrome.swift */,
 				F379D31DD56A27C65FC4E219 /* Colors.swift */,
+				681D466151D1455B46D9B8F3 /* ExerciseSummaryRow.swift */,
+				0F651D87E1F1D1C14332B126 /* Motion.swift */,
 				8E9EA8D51F683958047E4FD4 /* Spacing.swift */,
+				713CB8E6298174399DDAE4C0 /* TrajectoryArc.swift */,
 				4549B78E3C6BD3BE671D1F6A /* Typography.swift */,
 				4D86088BF9327417107129F4 /* VertmaxLogoMark.swift */,
 			);
@@ -282,10 +403,19 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		D72B0179D63228254B0AA1AF /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4A5093C90EEAAB2F18365325 /* WidgetSnapshot.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		D82A129FE00DDF0167B9AB3B /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				6D5D851D8C9F7947FEC6A2AF /* Vertmax.app */,
+				3DF03DE1C64BF17E5C65D856 /* VertmaxWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -310,6 +440,7 @@
 				CEAA47DA91866CAE67638C8D /* DesignSystem */,
 				9D97598483C34E77EBEE8AC6 /* Features */,
 				70585C8590276B7E8B7977A3 /* Navigation */,
+				D72B0179D63228254B0AA1AF /* Shared */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -325,6 +456,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AEC2D33B0E3BA2E141805CC0 /* VertmaxWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 828E29391B38E8F440383CDC /* Build configuration list for PBXNativeTarget "VertmaxWidgetExtension" */;
+			buildPhases = (
+				737079A0AC69337D163167FA /* Sources */,
+				7ECAB91440ABB1A91B7ED7C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VertmaxWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = VertmaxWidgetExtension;
+			productReference = 3DF03DE1C64BF17E5C65D856 /* VertmaxWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C75D583266B40D3A06D4895C /* Vertmax */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 33F23E178C4D8B0CA794F6D5 /* Build configuration list for PBXNativeTarget "Vertmax" */;
@@ -332,10 +481,12 @@
 				0A6D9EC335F8A0ADE63CF5FD /* Sources */,
 				88667EBBF9AFAFCEF6DE8349 /* Resources */,
 				DBEF958768A0C369CE568400 /* Frameworks */,
+				0858B7ECE53CB2AA073E93E8 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1CDFABD46B519972BE9304BA /* PBXTargetDependency */,
 			);
 			name = Vertmax;
 			packageProductDependencies = (
@@ -352,9 +503,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2650;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					AEC2D33B0E3BA2E141805CC0 = {
+						DevelopmentTeam = H5A68SDT6C;
+						ProvisioningStyle = Automatic;
+					};
 					C75D583266B40D3A06D4895C = {
+						DevelopmentTeam = H5A68SDT6C;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -377,16 +533,38 @@
 			projectRoot = "";
 			targets = (
 				C75D583266B40D3A06D4895C /* Vertmax */,
+				AEC2D33B0E3BA2E141805CC0 /* VertmaxWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7ECAB91440ABB1A91B7ED7C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD2887363C950587116AF422 /* Archivo-OFL.txt in Resources */,
+				9E3FBC67687EA800C23B5BD1 /* ArchivoBlack-Regular.ttf in Resources */,
+				4A8468982C0D49CD588ADB7D /* IBMPlexMono-Bold.ttf in Resources */,
+				9F079D88EF0447A7E77E206E /* IBMPlexMono-Medium.ttf in Resources */,
+				8710D22EAE283C2B42CC24A1 /* IBMPlexMono-OFL.txt in Resources */,
+				ACD6AEADBA7B1A68DE3D5AE7 /* IBMPlexMono-Regular.ttf in Resources */,
+				0DA407030C538DC6930FF194 /* IBMPlexMono-SemiBold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		88667EBBF9AFAFCEF6DE8349 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09252EF9EFF3199BE7BA7552 /* Archivo-OFL.txt in Resources */,
+				728A3FD103B8FA96E86D1617 /* ArchivoBlack-Regular.ttf in Resources */,
 				4D5EEE9F77C13AA09590EF3F /* Assets.xcassets in Resources */,
+				D293B74303221597BE8410D5 /* IBMPlexMono-Bold.ttf in Resources */,
+				768B2051B7CFF89E74E2797D /* IBMPlexMono-Medium.ttf in Resources */,
+				4A836267C1FD75FF1B9C5071 /* IBMPlexMono-OFL.txt in Resources */,
+				3A037A7D6D645F4A04F7B1B5 /* IBMPlexMono-Regular.ttf in Resources */,
+				A02086CB6C00DF8C4DEE2EB6 /* IBMPlexMono-SemiBold.ttf in Resources */,
 				E656EF4E7CFAB92FACF32209 /* approach-jump-focus.json in Resources */,
 				A8025DA67C25A495605B1818 /* beginner-bodyweight.json in Resources */,
 				DB50A4B8283495095942779C /* beginner-gym.json in Resources */,
@@ -406,18 +584,21 @@
 				E6F34CA13FB7ADB3F188702F /* CameraCaptureView.swift in Sources */,
 				6A755635F57FEEA8A385CF2C /* CameraPreviewView.swift in Sources */,
 				317F0C5FD90D1C9B65AA5974 /* CameraService.swift in Sources */,
+				434E96AE86792FDE5CA166F0 /* Chrome.swift in Sources */,
 				AEBFCBBEADBCC654F21AE5DE /* CoachView.swift in Sources */,
 				626607843B10D27EF1BBA4AA /* Colors.swift in Sources */,
 				ED78C81909ED71D06203A052 /* CustomProgram.swift in Sources */,
 				E17CCBB0A58B490957410A37 /* Exercise.swift in Sources */,
 				395BC3B92CF2BFC6360419B0 /* ExerciseLibrary.swift in Sources */,
 				8B335D1E6F022C49AD4C0AC9 /* ExerciseLibraryView.swift in Sources */,
+				90AE0EA8786DA4443FDC4503 /* ExerciseSummaryRow.swift in Sources */,
 				85EE43D63C2106CA39EB1C5A /* HomeView.swift in Sources */,
 				AC5566BC4C05B9B0CC785013 /* JumpAnalyzer.swift in Sources */,
 				A5F534DCE4E83562AC102390 /* JumpMeasurement.swift in Sources */,
 				B6FBF2F2800E58E2AE1C39F8 /* ManualEntryView.swift in Sources */,
 				3E104724CE777529DC39F08D /* MeasurementFlowView.swift in Sources */,
 				4AED35C107F6A520CAB1A412 /* MeasurementResultView.swift in Sources */,
+				7B5D4307C37B84BA894D3589 /* Motion.swift in Sources */,
 				2FE93E2207213C3B276EFBE3 /* OnboardingFlowView.swift in Sources */,
 				CBD5085EBBCE2540D5FC5EB8 /* OnboardingModels.swift in Sources */,
 				FA7BBC66A803C198115F74BD /* PersistenceController.swift in Sources */,
@@ -427,6 +608,7 @@
 				FBB49386CAC8BDC8C14E23E2 /* ProgramBuilderView.swift in Sources */,
 				A23CC672A98A5333C953CBA9 /* ProgramLibrary.swift in Sources */,
 				98396E89C150B4D44F819D24 /* ProgramLibraryBrowserView.swift in Sources */,
+				FF619AADF5F65CCBE79B483D /* ProgramProgression.swift in Sources */,
 				F29CE1D74C69E76ECCAB061D /* ProgramResolver.swift in Sources */,
 				7A2B37993ED3510FEA7FB9B9 /* ProgramRouter.swift in Sources */,
 				E035B9BCCB444590FBD79FE5 /* ProgramTabView.swift in Sources */,
@@ -434,17 +616,46 @@
 				93A1BC1299AC4BBA09E7A7CD /* ProgressDashboardView.swift in Sources */,
 				B370FE1B01A8D64E16942C12 /* RootTabView.swift in Sources */,
 				75A0CACAED7C5B9A5C5503A4 /* SessionCompletion.swift in Sources */,
+				27BBFBE098A0CB2DB8723685 /* ShareCardView.swift in Sources */,
 				C11E29A996C9B8A493B619D0 /* SignInView.swift in Sources */,
 				05E1206D35421D75B6B464AB /* Spacing.swift in Sources */,
+				4C03225163003DF514AE7CF2 /* StreakCalculator.swift in Sources */,
 				919D7091B35BF9BB072ABB96 /* SupabaseManager.swift in Sources */,
+				AB041241A2DD55EDEEBA9758 /* TrajectoryArc.swift in Sources */,
 				3EE9F15A66922D42CFC36955 /* Typography.swift in Sources */,
 				567A2F25D658AD083A86F96F /* UserProfile.swift in Sources */,
 				26200E87BDDFB1D22C929085 /* VertmaxApp.swift in Sources */,
 				B48D462DF77AE9EEAE1F723A /* VertmaxLogoMark.swift in Sources */,
+				F50D9DD7389A89667E2AE8D2 /* WidgetSnapshot.swift in Sources */,
+				8264569C86741E78AEE2D01F /* WidgetSnapshotRefresher.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		737079A0AC69337D163167FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAD78409F99D02F725678671 /* Colors.swift in Sources */,
+				6CFC0E764F8A414153F3CAB0 /* Spacing.swift in Sources */,
+				47E5080C69F70C7F70563753 /* TrajectoryArc.swift in Sources */,
+				D969AD7AC5C0413F462D192C /* Typography.swift in Sources */,
+				62E31A81F7C17C0369303D16 /* VertmaxLogoMark.swift in Sources */,
+				54A6A25F7A887FDD1408E19F /* VertmaxWidget.swift in Sources */,
+				5D0FEEC0D2AE5DE61A63D751 /* VertmaxWidgetProvider.swift in Sources */,
+				912B83934C19B7F18074C3B2 /* VertmaxWidgetView.swift in Sources */,
+				458C46C9EA3AFCCD4EF1DC6C /* WidgetSnapshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1CDFABD46B519972BE9304BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AEC2D33B0E3BA2E141805CC0 /* VertmaxWidgetExtension */;
+			targetProxy = 0DB1CF388E5DCC776F735C58 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		086B5F72757B00CC2CCABA3B /* Debug */ = {
@@ -487,7 +698,6 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -508,7 +718,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
@@ -520,8 +729,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Resources/Vertmax.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = NZ7NWUF55A;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -539,8 +748,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Resources/Vertmax.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = NZ7NWUF55A;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -552,6 +761,24 @@
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
+		};
+		6B8DA823F452A238E3EE6546 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/VertmaxWidgetExtension.entitlements;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vertmax Widget";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vertmax.app.widget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
 		};
 		7F4D6B8AE685BFCB48262B64 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -593,7 +820,6 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -607,10 +833,27 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		8C11221EF398D9C01514D934 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension/VertmaxWidgetExtension.entitlements;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vertmax Widget";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vertmax.app.widget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -631,6 +874,15 @@
 			buildConfigurations = (
 				1AB4914584B9185C91336B88 /* Debug */,
 				634F592DCA1DA2A95D84BBB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		828E29391B38E8F440383CDC /* Build configuration list for PBXNativeTarget "VertmaxWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B8DA823F452A238E3EE6546 /* Debug */,
+				8C11221EF398D9C01514D934 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

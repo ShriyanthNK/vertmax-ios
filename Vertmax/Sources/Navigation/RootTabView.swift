@@ -7,17 +7,32 @@ struct RootTabView: View {
     @StateObject private var supabase = SupabaseManager.shared
     @Query private var profiles: [UserProfile]
     @State private var justFinishedOnboarding = false
+    #if DEBUG
+    @State private var debugBypassAuth = false
+    #endif
+
+    private var isSignedIn: Bool {
+        #if DEBUG
+        supabase.session != nil || debugBypassAuth
+        #else
+        supabase.session != nil
+        #endif
+    }
 
     var body: some View {
         Group {
-            if supabase.session != nil {
+            if isSignedIn {
                 if profiles.isEmpty && !justFinishedOnboarding {
                     OnboardingFlowView(onComplete: { justFinishedOnboarding = true })
                 } else {
                     MainTabView()
                 }
             } else {
+                #if DEBUG
+                SignInView(onDebugBypass: { debugBypassAuth = true })
+                #else
                 SignInView()
+                #endif
             }
         }
     }

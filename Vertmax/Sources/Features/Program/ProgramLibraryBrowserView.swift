@@ -22,13 +22,8 @@ struct ProgramLibraryBrowserView: View {
                             showBuilder = true
                         } label: {
                             Label("Create Your Own Program", systemImage: "plus.circle.fill")
-                                .font(VertFont.headline)
-                                .foregroundStyle(.ink)
-                                .frame(maxWidth: .infinity)
-                                .padding(Spacing.md)
-                                .background(Color.voltGreen)
-                                .clipShape(RoundedRectangle(cornerRadius: Radius.md))
                         }
+                        .buttonStyle(VoltButtonStyle())
 
                         if !customPrograms.isEmpty {
                             sectionHeader("My Programs")
@@ -91,9 +86,9 @@ struct ProgramLibraryBrowserView: View {
                 }
             }
             .padding(Spacing.md)
-            .background(isActive ? Color.voltGreen.opacity(0.12) : Color.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Radius.md))
+            .cardStyle(accent: isActive ? .voltGreen : nil)
         }
         .buttonStyle(.plain)
+        .pressableRow()
     }
 }

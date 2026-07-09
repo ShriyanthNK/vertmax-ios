@@ -49,9 +49,9 @@ struct ProgramBuilderView: View {
                                 .foregroundStyle(.voltGreen)
                                 .frame(maxWidth: .infinity)
                                 .padding(Spacing.md)
-                                .background(Color.surface)
-                                .clipShape(RoundedRectangle(cornerRadius: Radius.md))
+                                .cardStyle()
                         }
+                        .pressableRow()
                     }
                     .padding(Spacing.lg)
                 }
@@ -92,7 +92,11 @@ struct ProgramBuilderView: View {
                 .foregroundStyle(.textPrimary)
                 .padding(Spacing.sm)
                 .background(Color.surface)
-                .clipShape(RoundedRectangle(cornerRadius: Radius.sm))
+                .overlay(
+                    RoundedRectangle(cornerRadius: Radius.sm, style: .continuous)
+                        .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: Radius.sm, style: .continuous))
         }
     }
 
@@ -127,8 +131,7 @@ struct ProgramBuilderView: View {
             }
         }
         .padding(Spacing.md)
-        .background(Color.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
+        .cardStyle()
     }
 
     private func exerciseEditRow(sessionIndex: Int, exerciseIndex: Int, exercise: ProgramExercise) -> some View {
@@ -146,7 +149,7 @@ struct ProgramBuilderView: View {
                         ),
                         in: 1...8
                     )
-                    .font(VertFont.caption)
+                    .font(VertFont.dataCaption)
                     .foregroundStyle(.textMuted)
                     .fixedSize()
 
@@ -154,7 +157,7 @@ struct ProgramBuilderView: View {
                         get: { sessions[sessionIndex].exercises[exerciseIndex].reps },
                         set: { sessions[sessionIndex].exercises[exerciseIndex].reps = $0 }
                     ))
-                    .font(VertFont.caption)
+                    .font(VertFont.dataCaption)
                     .foregroundStyle(.textPrimary)
                     .frame(width: 50)
                     .padding(.horizontal, Spacing.xxs)

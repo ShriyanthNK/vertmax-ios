@@ -3,13 +3,19 @@ import SwiftData
 
 struct ProgramView: View {
     let program: Program
+    /// Week numbers with the auto-progression boost active — see
+    /// ProgramProgression. Passed in from the resolved program rather than
+    /// recomputed here, so this view doesn't need its own completions query
+    /// beyond the one it already keeps for the checkmarks.
+    let boostedWeeks: Set<Int>
 
     @Environment(\.modelContext) private var modelContext
     @Query private var completions: [SessionCompletion]
     @State private var explicitSelectedWeek: Int?
 
-    init(program: Program) {
+    init(program: Program, boostedWeeks: Set<Int> = []) {
         self.program = program
+        self.boostedWeeks = boostedWeeks
         let programID = program.id
         _completions = Query(filter: #Predicate<SessionCompletion> { $0.programID == programID })
     }
@@ -63,6 +69,11 @@ struct ProgramView: View {
             Text(program.summary)
                 .font(VertFont.caption)
                 .foregroundStyle(.textMuted)
+            if boostedWeeks.contains(selectedWeek) {
+                Label("Volume up — last week fully completed", systemImage: "arrow.up.forward")
+                    .font(VertFont.caption)
+                    .foregroundStyle(.voltGreen)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, Spacing.lg)
@@ -73,16 +84,11 @@ struct ProgramView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: Spacing.xs) {
                 ForEach(program.weeks) { week in
-                    Button {
-                        explicitSelectedWeek = week.weekNumber
-                    } label: {
-                        Text(week.isDeload ? "Wk \(week.weekNumber) · Deload" : "Week \(week.weekNumber)")
-                            .font(VertFont.body(14, weight: .semibold))
-                            .padding(.horizontal, Spacing.sm)
-                            .padding(.vertical, Spacing.xs)
-                            .background(selectedWeek == week.weekNumber ? Color.voltGreen : Color.surface)
-                            .foregroundStyle(selectedWeek == week.weekNumber ? .ink : .textPrimary)
-                            .clipShape(Capsule())
+                    ChipToggle(
+                        title: week.isDeload ? "Wk \(week.weekNumber) · Deload" : "Week \(week.weekNumber)",
+                        isSelected: selectedWeek == week.weekNumber
+                    ) {
+                        withAnimation(.easeOut(duration: 0.2)) { explicitSelectedWeek = week.weekNumber }
                     }
                 }
             }
@@ -108,12 +114,16 @@ struct ProgramView: View {
                 }
                 Spacer()
                 Button {
-                    toggleCompletion(session: session, weekNumber: weekNumber, isComplete: isComplete)
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                        toggleCompletion(session: session, weekNumber: weekNumber, isComplete: isComplete)
+                    }
                 } label: {
                     Image(systemName: isComplete ? "checkmark.circle.fill" : "circle")
                         .font(.system(size: 26))
                         .foregroundStyle(isComplete ? .voltGreen : .textMuted)
+                        .contentShape(Circle())
                 }
+                .buttonStyle(.plain)
             }
 
             VStack(spacing: Spacing.xs) {
@@ -123,9 +133,9 @@ struct ProgramView: View {
             }
         }
         .padding(Spacing.md)
-        .background(Color.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
+        .cardStyle()
         .opacity(isComplete ? 0.6 : 1)
+        .animation(.easeOut(duration: 0.2), value: isComplete)
     }
 
     private func exerciseRow(_ exercise: ProgramExercise) -> some View {
@@ -135,17 +145,11 @@ struct ProgramView: View {
                     .font(VertFont.body(15, weight: .medium))
                     .foregroundStyle(.textPrimary)
                 if exercise.isPlyometric {
-                    Text("PLYO")
-                        .font(VertFont.body(10, weight: .bold))
-                        .foregroundStyle(.ink)
-                        .padding(.horizontal, Spacing.xxs)
-                        .padding(.vertical, 2)
-                        .background(Color.voltGreen)
-                        .clipShape(Capsule())
+                    PlyoBadge()
                 }
                 Spacer()
                 Text("\(exercise.sets) × \(exercise.reps)")
-                    .font(VertFont.body(14))
+                    .font(VertFont.dataLabel)
                     .foregroundStyle(.textMuted)
             }
             if let note = exercise.note {
@@ -166,5 +170,6 @@ struct ProgramView: View {
             modelContext.insert(SessionCompletion(programID: program.id, weekNumber: weekNumber, sessionID: session.id))
         }
         try? modelContext.save()
+        WidgetSnapshotRefresher.refresh(context: modelContext)
     }
 }

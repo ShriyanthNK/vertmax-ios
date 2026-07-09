@@ -99,7 +99,7 @@ private struct JumpTypePickerView: View {
             VStack(spacing: Spacing.lg) {
                 Spacer()
                 Text("What kind of jump?")
-                    .font(VertFont.title)
+                    .font(VertFont.screenTitle)
                     .foregroundStyle(.textPrimary)
 
                 VStack(spacing: Spacing.sm) {
@@ -132,9 +132,9 @@ private struct JumpTypePickerView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(Spacing.md)
-            .background(Color.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Radius.md))
+            .cardStyle()
         }
+        .pressableRow()
     }
 }
 
@@ -149,7 +149,7 @@ private struct CaptureMethodPickerView: View {
             VStack(spacing: Spacing.lg) {
                 Spacer()
                 Text("Record or import?")
-                    .font(VertFont.title)
+                    .font(VertFont.screenTitle)
                     .foregroundStyle(.textPrimary)
 
                 VStack(spacing: Spacing.sm) {
@@ -186,9 +186,9 @@ private struct CaptureMethodPickerView: View {
                 Spacer()
             }
             .padding(Spacing.md)
-            .background(Color.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Radius.md))
+            .cardStyle()
         }
+        .pressableRow()
     }
 }
 
@@ -245,9 +245,9 @@ private struct VideoImportView: View {
                         }
                         .frame(maxWidth: .infinity)
                         .padding(Spacing.xl)
-                        .background(Color.surface)
-                        .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
+                        .cardStyle()
                     }
+                    .pressableRow()
 
                     if let errorMessage {
                         Text(errorMessage)
@@ -286,22 +286,33 @@ private struct VideoImportView: View {
     }
 }
 
+/// The one loading state worth a bespoke treatment: a traced arc instead of
+/// a generic spinner, since what's actually happening behind the scenes is
+/// tracing takeoff-to-landing — the same shape as the signature motif.
 private struct MeasurementProcessingView: View {
+    @State private var traced = false
+
     var body: some View {
         ZStack {
             Color.ink.ignoresSafeArea()
-            VStack(spacing: Spacing.md) {
-                ProgressView()
-                    .tint(.voltGreen)
-                    .scaleEffect(1.4)
-                Text("Measuring your jump…")
-                    .font(VertFont.headline)
-                    .foregroundStyle(.textPrimary)
-                Text("Detecting takeoff and landing frames")
-                    .font(VertFont.caption)
-                    .foregroundStyle(.textMuted)
+            VStack(spacing: Spacing.lg) {
+                TrajectoryArc(liftoff: 0.05)
+                    .trim(from: 0, to: traced ? 1 : 0)
+                    .stroke(Color.voltGreen, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                    .frame(width: 180, height: 110)
+                    .animation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true), value: traced)
+
+                VStack(spacing: Spacing.xs) {
+                    Text("Measuring your jump…")
+                        .font(VertFont.headline)
+                        .foregroundStyle(.textPrimary)
+                    Text("Detecting takeoff and landing frames")
+                        .font(VertFont.caption)
+                        .foregroundStyle(.textMuted)
+                }
             }
         }
+        .onAppear { traced = true }
     }
 }
 
@@ -325,9 +336,8 @@ private struct MeasurementErrorView: View {
 
                 if let onRetry {
                     Button("Try Again", action: onRetry)
-                        .buttonStyle(.borderedProminent)
-                        .tint(.voltGreen)
-                        .foregroundStyle(.ink)
+                        .buttonStyle(VoltButtonStyle())
+                        .padding(.horizontal, Spacing.xl)
                 }
                 Button("Enter Manually Instead", action: onManualEntry)
                     .font(VertFont.caption)

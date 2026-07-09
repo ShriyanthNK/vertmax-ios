@@ -7,6 +7,7 @@ struct CameraCaptureView: View {
 
     @StateObject private var camera = CameraService()
     @State private var isPreparing = true
+    @State private var recordingPulse = false
 
     var body: some View {
         ZStack {
@@ -81,13 +82,19 @@ struct CameraCaptureView: View {
             } label: {
                 ZStack {
                     Circle()
-                        .strokeBorder(Color.voltGreen, lineWidth: 4)
+                        .strokeBorder(camera.isRecording ? Color.stopRed : Color.voltGreen, lineWidth: 4)
                         .frame(width: 76, height: 76)
+                        .scaleEffect(camera.isRecording && recordingPulse ? 1.12 : 1)
+                        .opacity(camera.isRecording && recordingPulse ? 0.4 : 1)
+                        .animation(camera.isRecording ? .easeOut(duration: 0.9).repeatForever(autoreverses: false) : .default, value: recordingPulse)
                     Circle()
                         .fill(camera.isRecording ? Color.stopRed : Color.voltGreen)
                         .frame(width: camera.isRecording ? 32 : 62, height: camera.isRecording ? 32 : 62)
                         .animation(.easeInOut(duration: 0.15), value: camera.isRecording)
                 }
+            }
+            .onChange(of: camera.isRecording) { _, isRecording in
+                recordingPulse = isRecording
             }
         }
     }

@@ -2,10 +2,23 @@ import SwiftUI
 
 struct SignInView: View {
     @StateObject private var supabase = SupabaseManager.shared
+    @State private var appeared = false
+    #if DEBUG
+    var onDebugBypass: (() -> Void)?
+    #endif
 
     var body: some View {
         ZStack {
             Color.ink.ignoresSafeArea()
+
+            GeometryReader { geo in
+                TrajectoryArc(liftoff: 0.1)
+                    .stroke(Color.voltGreen.opacity(0.12), style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                    .frame(width: geo.size.width * 1.3, height: geo.size.height * 0.6)
+                    .offset(x: -geo.size.width * 0.15, y: geo.size.height * 0.08)
+            }
+            .ignoresSafeArea()
+            .allowsHitTesting(false)
 
             VStack(spacing: Spacing.xl) {
                 Spacer()
@@ -13,14 +26,17 @@ struct SignInView: View {
                 VStack(spacing: Spacing.md) {
                     VertmaxLogoMark()
                         .frame(width: 96, height: 96)
+                        .reveal(appeared)
                     VStack(spacing: Spacing.xs) {
                         Text("VERTMAX")
-                            .font(VertFont.display(34, weight: .heavy))
+                            .font(VertFont.display(38))
                             .foregroundStyle(.textPrimary)
+                            .eyebrowTracking()
                         Text("Measure it. Train for it. Prove it.")
                             .font(VertFont.bodyText)
                             .foregroundStyle(.textMuted)
                     }
+                    .reveal(appeared, delay: 0.1)
                 }
 
                 Spacer()
@@ -36,14 +52,9 @@ struct SignInView: View {
                                 Image(systemName: "g.circle.fill")
                             }
                             Text("Continue with Google")
-                                .font(VertFont.headline)
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, Spacing.sm)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.voltGreen)
-                    .foregroundStyle(.ink)
+                    .buttonStyle(VoltButtonStyle())
                     .disabled(supabase.isAuthenticating)
 
                     if let error = supabase.authError {
@@ -58,10 +69,23 @@ struct SignInView: View {
                         .foregroundStyle(.textMuted)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, Spacing.lg)
+
+                    #if DEBUG
+                    if let onDebugBypass {
+                        Button("Skip Sign-In (Debug Build)", action: onDebugBypass)
+                            .font(VertFont.caption)
+                            .foregroundStyle(.voltGreen)
+                            .padding(.top, Spacing.xs)
+                    }
+                    #endif
                 }
                 .padding(.bottom, Spacing.xxl)
+                .reveal(appeared, delay: 0.2)
             }
             .padding(.horizontal, Spacing.lg)
+        }
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.6)) { appeared = true }
         }
     }
 }

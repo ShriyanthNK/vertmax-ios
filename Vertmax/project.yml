@@ -39,6 +39,17 @@ targets:
           - CFBundleURLSchemes:
               - vertmax
             CFBundleURLName: com.vertmax.app.auth-callback
+        UIAppFonts:
+          - ArchivoBlack-Regular.ttf
+          - IBMPlexMono-Regular.ttf
+          - IBMPlexMono-Medium.ttf
+          - IBMPlexMono-SemiBold.ttf
+          - IBMPlexMono-Bold.ttf
+    entitlements:
+      path: Resources/Vertmax.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.vertmax.app
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.vertmax.app
@@ -49,3 +60,41 @@ targets:
     dependencies:
       - package: Supabase
         product: Supabase
+      - target: VertmaxWidgetExtension
+        embed: true
+
+  VertmaxWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: WidgetExtension/Sources
+      - path: Sources/DesignSystem/Colors.swift
+      - path: Sources/DesignSystem/Typography.swift
+      - path: Sources/DesignSystem/Spacing.swift
+      - path: Sources/DesignSystem/VertmaxLogoMark.swift
+      - path: Sources/DesignSystem/TrajectoryArc.swift
+      - path: Sources/Shared/WidgetSnapshot.swift
+      - path: Resources/Fonts
+    info:
+      path: WidgetExtension/Info.plist
+      properties:
+        CFBundleDisplayName: Vertmax Widget
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+        UIAppFonts:
+          - ArchivoBlack-Regular.ttf
+          - IBMPlexMono-Regular.ttf
+          - IBMPlexMono-Medium.ttf
+          - IBMPlexMono-SemiBold.ttf
+          - IBMPlexMono-Bold.ttf
+    entitlements:
+      path: WidgetExtension/VertmaxWidgetExtension.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.vertmax.app
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.vertmax.app.widget
+        TARGETED_DEVICE_FAMILY: "1"
+        INFOPLIST_KEY_CFBundleDisplayName: Vertmax Widget
+        SKIP_INSTALL: YES

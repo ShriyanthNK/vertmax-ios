@@ -25,6 +25,18 @@ extension Color {
     }
 }
 
+extension RadialGradient {
+    /// Soft volt glow for behind the hero vert number only — it's still
+    /// marking the number per the rationing rule above, just as atmosphere
+    /// instead of a hard fill.
+    static let voltGlow = RadialGradient(
+        colors: [Color.voltGreen.opacity(0.16), Color.voltGreen.opacity(0)],
+        center: .center,
+        startRadius: 0,
+        endRadius: 200
+    )
+}
+
 /// Lets `.foregroundStyle(.textPrimary)` etc. resolve via implicit member
 /// syntax — SwiftUI only does this for `ShapeStyle` statics, not `Color` ones.
 extension ShapeStyle where Self == Color {

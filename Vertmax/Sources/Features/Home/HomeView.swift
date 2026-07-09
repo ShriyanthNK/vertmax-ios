@@ -8,6 +8,7 @@ struct HomeView: View {
     @Query private var customPrograms: [CustomProgram]
     @Query private var completions: [SessionCompletion]
     @State private var showMeasurementFlow = false
+    @State private var appeared = false
 
     private var best: JumpMeasurement? {
         measurements.max { $0.heightInches < $1.heightInches }
@@ -19,11 +20,27 @@ struct HomeView: View {
         return Calendar.current.dateComponents([.day], from: best.date, to: .now).day
     }
 
+    /// Consecutive days with a completed session or a measurement — either
+    /// counts, since both mean the user showed up.
+    private var currentStreak: Int {
+        StreakCalculator.currentStreak(
+            sessionDates: completions.map(\.completedAt),
+            measurementDates: measurements.map(\.date)
+        )
+    }
+
     private var profile: UserProfile? { profiles.first }
 
-    private var assignedProgram: Program? {
-        profile.flatMap { ProgramResolver.resolve(id: $0.assignedProgramID, customPrograms: customPrograms) }
+    /// Resolved program with the auto-progression layer applied — see
+    /// ProgramProgression for what that does and why it's conservative.
+    private var progression: ProgramProgression.Result? {
+        guard let profile, let base = ProgramResolver.resolve(id: profile.assignedProgramID, customPrograms: customPrograms) else {
+            return nil
+        }
+        return ProgramProgression.applied(to: base, completions: completions)
     }
+
+    private var assignedProgram: Program? { progression?.program }
 
     /// First session, in week/day order, with no completion record yet —
     /// same "up next" logic as ProgramTabView, surfaced here so today's work
@@ -44,48 +61,62 @@ struct HomeView: View {
             ZStack {
                 Color.ink.ignoresSafeArea()
 
-                VStack(spacing: Spacing.lg) {
+                VStack(spacing: 0) {
                     header
 
-                    heroCard
+                    ScrollView {
+                        VStack(spacing: Spacing.lg) {
+                            heroCard
+                                .reveal(appeared, delay: 0.02)
 
-                    if let days = daysSinceLastMeasurement, days >= 21 {
-                        retestBanner(days: days)
-                    }
-
-                    if let assignedProgram {
-                        if let todaySession {
-                            todayWorkoutCard(todaySession.week, todaySession.session, program: assignedProgram)
-                        } else {
-                            allDoneCard
-                        }
-                    }
-
-                    if best != nil {
-                        Button {
-                            showMeasurementFlow = true
-                        } label: {
-                            HStack(spacing: Spacing.xs) {
-                                Image(systemName: "camera.fill")
-                                Text("Measure Your Vert")
-                                    .font(VertFont.headline)
+                            if let days = daysSinceLastMeasurement, days >= 21 {
+                                retestBanner(days: days)
+                                    .reveal(appeared, delay: 0.08)
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, Spacing.sm)
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .tint(.voltGreen)
-                        .foregroundStyle(.ink)
-                    }
 
-                    Spacer()
+                            if let assignedProgram {
+                                Group {
+                                    if let todaySession {
+                                        todayWorkoutCard(
+                                            todaySession.week,
+                                            todaySession.session,
+                                            program: assignedProgram,
+                                            isBoosted: progression?.boostedWeeks.contains(todaySession.week.weekNumber) ?? false
+                                        )
+                                    } else {
+                                        allDoneCard
+                                    }
+                                }
+                                .reveal(appeared, delay: 0.14)
+                            }
+
+                            if best != nil {
+                                Button {
+                                    showMeasurementFlow = true
+                                } label: {
+                                    HStack(spacing: Spacing.xs) {
+                                        Image(systemName: "camera.fill")
+                                        Text("Measure Your Vert")
+                                    }
+                                }
+                                .buttonStyle(VoltButtonStyle())
+                                .reveal(appeared, delay: 0.2)
+                            }
+                        }
+                        .padding(Spacing.lg)
+                        .padding(.bottom, Spacing.xl)
+                    }
+                    .animation(.easeInOut(duration: 0.3), value: completions.count)
                 }
-                .padding(Spacing.lg)
             }
             .navigationBarTitleDisplayMode(.inline)
             .profileToolbar()
             .fullScreenCover(isPresented: $showMeasurementFlow) {
                 MeasurementFlowView()
+            }
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.5)) { appeared = true }
+                WidgetSnapshotRefresher.refresh(context: modelContext)
             }
         }
     }
@@ -93,53 +124,81 @@ struct HomeView: View {
     private var header: some View {
         HStack(spacing: Spacing.xs) {
             VertmaxLogoMark()
-                .frame(width: 28, height: 28)
-            Text("Vertmax")
-                .font(VertFont.title)
+                .frame(width: 26, height: 26)
+            Text("VERTMAX")
+                .font(VertFont.wordmark)
                 .foregroundStyle(.textPrimary)
+                .eyebrowTracking()
             Spacer()
+            if currentStreak > 0 {
+                streakBadge
+            }
         }
+        .padding(.horizontal, Spacing.lg)
         .padding(.top, Spacing.xs)
+        .padding(.bottom, Spacing.sm)
+    }
+
+    private var streakBadge: some View {
+        HStack(spacing: Spacing.xxs) {
+            Image(systemName: "flame.fill")
+                .font(.system(size: 13))
+            Text("\(currentStreak)")
+                .font(VertFont.dataLabel)
+        }
+        .foregroundStyle(.voltGreen)
+        .padding(.horizontal, Spacing.sm)
+        .padding(.vertical, Spacing.xxs)
+        .background(Color.voltGreen.opacity(0.12))
+        .clipShape(Capsule())
     }
 
     private func retestBanner(days: Int) -> some View {
-        HStack(spacing: Spacing.xs) {
+        HStack(spacing: Spacing.sm) {
             Image(systemName: "arrow.clockwise")
                 .foregroundStyle(.cautionAmber)
             Text("It's been \(days) days. Time to retest and see your progress.")
                 .font(VertFont.caption)
                 .foregroundStyle(.textPrimary)
-            Spacer()
+            Spacer(minLength: 0)
         }
         .padding(Spacing.sm)
         .background(Color.cautionAmber.opacity(0.12))
-        .clipShape(RoundedRectangle(cornerRadius: Radius.sm))
+        .overlay(
+            RoundedRectangle(cornerRadius: Radius.sm, style: .continuous)
+                .strokeBorder(Color.cautionAmber.opacity(0.25), lineWidth: 1)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: Radius.sm, style: .continuous))
     }
 
     @ViewBuilder
     private var heroCard: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
-            Text("Best Vert")
-                .font(VertFont.caption)
+            Text("BEST VERT")
+                .font(VertFont.eyebrow)
                 .foregroundStyle(.textMuted)
+                .eyebrowTracking()
 
             if let best {
                 HStack(alignment: .firstTextBaseline, spacing: Spacing.xxs) {
                     Text(String(format: "%.1f", best.heightInches))
                         .font(VertFont.heroNumber)
                         .foregroundStyle(.voltGreen)
+                        .contentTransition(.numericText())
                     Text("in")
-                        .font(VertFont.headline)
+                        .font(VertFont.heroUnit)
                         .foregroundStyle(.textMuted)
                 }
+                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: best.heightInches)
+
                 Text(best.date, style: .date)
                     .font(VertFont.caption)
                     .foregroundStyle(.textMuted)
             } else {
-                Text("--")
+                Text("––.–")
                     .font(VertFont.heroNumber)
-                    .foregroundStyle(.textMuted)
-                Text("Take your first measurement to see your vert here.")
+                    .foregroundStyle(.textMuted.opacity(0.5))
+                Text("Measure your first jump to set your baseline.")
                     .font(VertFont.caption)
                     .foregroundStyle(.textMuted)
 
@@ -149,52 +208,62 @@ struct HomeView: View {
                     HStack(spacing: Spacing.xs) {
                         Image(systemName: "camera.fill")
                         Text("Measure Your Vert")
-                            .font(VertFont.headline)
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, Spacing.sm)
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.voltGreen)
-                .foregroundStyle(.ink)
+                .buttonStyle(VoltButtonStyle())
                 .padding(.top, Spacing.xs)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Spacing.lg)
-        .background(Color.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
+        .background(alignment: .topTrailing) {
+            Circle()
+                .fill(RadialGradient.voltGlow)
+                .frame(width: 260, height: 260)
+                .offset(x: 80, y: -90)
+                .allowsHitTesting(false)
+        }
+        .trajectoryBackdrop(opacity: best != nil ? 0.16 : 0.08)
+        .cardStyle()
     }
 
-    private func todayWorkoutCard(_ week: ProgramWeek, _ session: ProgramSession, program: Program) -> some View {
+    private func todayWorkoutCard(_ week: ProgramWeek, _ session: ProgramSession, program: Program, isBoosted: Bool) -> some View {
         VStack(alignment: .leading, spacing: Spacing.sm) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: Spacing.xxs) {
                     Text("TODAY'S WORKOUT")
-                        .font(VertFont.body(11, weight: .bold))
+                        .font(VertFont.eyebrow)
                         .foregroundStyle(.voltGreen)
+                        .eyebrowTracking()
                     Text(session.name)
                         .font(VertFont.headline)
                         .foregroundStyle(.textPrimary)
                     Text(week.isDeload ? "\(session.dayLabel) · Week \(week.weekNumber) (Deload)" : "\(session.dayLabel) · Week \(week.weekNumber)")
                         .font(VertFont.caption)
                         .foregroundStyle(.textMuted)
+                    if isBoosted {
+                        Label("Volume up — last week fully completed", systemImage: "arrow.up.forward")
+                            .font(VertFont.caption)
+                            .foregroundStyle(.voltGreen)
+                    }
                 }
                 Spacer()
                 Button {
-                    completeSession(session, weekNumber: week.weekNumber, programID: program.id)
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                        completeSession(session, weekNumber: week.weekNumber, programID: program.id)
+                    }
                 } label: {
                     Image(systemName: "circle")
                         .font(.system(size: 26))
                         .foregroundStyle(.textMuted)
+                        .contentShape(Circle())
                 }
+                .buttonStyle(.plain)
             }
 
             VStack(alignment: .leading, spacing: Spacing.xxs) {
                 ForEach(session.exercises.prefix(4)) { exercise in
-                    Text("• \(exercise.name) · \(exercise.sets)×\(exercise.reps)")
-                        .font(VertFont.caption)
-                        .foregroundStyle(.textMuted)
+                    ExerciseSummaryRow(name: exercise.name, sets: exercise.sets, reps: exercise.reps)
                 }
                 if session.exercises.count > 4 {
                     Text("+ \(session.exercises.count - 4) more")
@@ -205,12 +274,7 @@ struct HomeView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Spacing.lg)
-        .background(Color.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
-        .overlay(
-            RoundedRectangle(cornerRadius: Radius.lg)
-                .strokeBorder(Color.voltGreen.opacity(0.4), lineWidth: 1.5)
-        )
+        .cardStyle(accent: .voltGreen)
     }
 
     private var allDoneCard: some View {
@@ -225,12 +289,12 @@ struct HomeView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(Spacing.lg)
-        .background(Color.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
+        .cardStyle(accent: .voltGreen)
     }
 
     private func completeSession(_ session: ProgramSession, weekNumber: Int, programID: String) {
         modelContext.insert(SessionCompletion(programID: programID, weekNumber: weekNumber, sessionID: session.id))
         try? modelContext.save()
+        WidgetSnapshotRefresher.refresh(context: modelContext)
     }
 }

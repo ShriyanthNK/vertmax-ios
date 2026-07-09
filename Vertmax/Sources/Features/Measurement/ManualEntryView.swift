@@ -21,7 +21,7 @@ struct ManualEntryView: View {
             VStack(spacing: Spacing.lg) {
                 VStack(spacing: Spacing.xxs) {
                     Text("Wall-Touch Method")
-                        .font(VertFont.title)
+                        .font(VertFont.screenTitle)
                         .foregroundStyle(.textPrimary)
                     Text("Mark your standing reach, then your highest jump touch, both against a wall.")
                         .font(VertFont.caption)
@@ -45,9 +45,7 @@ struct ManualEntryView: View {
                 Button("Save Measurement") {
                     save()
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.voltGreen)
-                .foregroundStyle(.ink)
+                .buttonStyle(VoltButtonStyle())
                 .disabled(computedHeight == nil)
             }
             .padding(Spacing.lg)
@@ -61,11 +59,15 @@ struct ManualEntryView: View {
                 .foregroundStyle(.textMuted)
             TextField("0.0", text: text)
                 .keyboardType(.decimalPad)
-                .font(VertFont.body(20, weight: .semibold))
+                .font(VertFont.numeric(20, weight: .medium))
                 .foregroundStyle(.textPrimary)
                 .padding(Spacing.sm)
                 .background(Color.surface)
-                .clipShape(RoundedRectangle(cornerRadius: Radius.sm))
+                .overlay(
+                    RoundedRectangle(cornerRadius: Radius.sm, style: .continuous)
+                        .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: Radius.sm, style: .continuous))
         }
     }
 
@@ -78,6 +80,7 @@ struct ManualEntryView: View {
         )
         modelContext.insert(measurement)
         try? modelContext.save()
+        WidgetSnapshotRefresher.refresh(context: modelContext)
         onSaved()
     }
 }

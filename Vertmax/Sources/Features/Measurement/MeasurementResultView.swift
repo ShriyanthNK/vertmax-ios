@@ -10,6 +10,9 @@ struct MeasurementResultView: View {
     @State private var takeoffThumbnail: CGImage?
     @State private var landingThumbnail: CGImage?
     @State private var isSaving = false
+    @State private var revealed = false
+    @State private var shareCardImage: Image?
+    @State private var shareCardURL: URL?
 
     var body: some View {
         ZStack {
@@ -24,17 +27,30 @@ struct MeasurementResultView: View {
                             .font(VertFont.heroNumber)
                             .foregroundStyle(.voltGreen)
                         Text("in")
-                            .font(VertFont.title)
+                            .font(VertFont.heroUnit)
                             .foregroundStyle(.textMuted)
                     }
                     Text(result.jumpType == .standing ? "Standing Vert" : "Approach Jump")
                         .font(VertFont.bodyText)
                         .foregroundStyle(.textMuted)
                 }
+                .padding(.vertical, Spacing.lg)
+                .background {
+                    Circle()
+                        .fill(RadialGradient.voltGlow)
+                        .frame(width: 320, height: 320)
+                        .allowsHitTesting(false)
+                }
+                .trajectoryBackdrop(opacity: 0.18)
+                .scaleEffect(revealed ? 1 : 0.72)
+                .opacity(revealed ? 1 : 0)
+                .animation(.spring(response: 0.55, dampingFraction: 0.68), value: revealed)
 
                 credibilityBadge
+                    .reveal(revealed, delay: 0.2)
 
                 frameEvidence
+                    .reveal(revealed, delay: 0.28)
 
                 Spacer()
 
@@ -45,21 +61,36 @@ struct MeasurementResultView: View {
                         HStack {
                             if isSaving { ProgressView().tint(.ink) }
                             Text(isSaving ? "Saving…" : "Save Measurement")
-                                .font(VertFont.headline)
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, Spacing.sm)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.voltGreen)
-                    .foregroundStyle(.ink)
+                    .buttonStyle(VoltButtonStyle())
                     .disabled(isSaving)
                 }
+                .reveal(revealed, delay: 0.34)
             }
             .padding(Spacing.lg)
         }
-        .task { await loadThumbnails() }
+        .task {
+            await loadThumbnails()
+            renderShareCard()
+        }
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            revealed = true
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                if let shareCardURL {
+                    ShareLink(
+                        item: shareCardURL,
+                        preview: SharePreview("My Vertmax Jump", image: shareCardImage ?? Image(systemName: "photo"))
+                    ) {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundStyle(.textPrimary)
+                    }
+                }
+            }
+        }
     }
 
     private var credibilityBadge: some View {
@@ -73,6 +104,7 @@ struct MeasurementResultView: View {
         .padding(.horizontal, Spacing.sm)
         .padding(.vertical, Spacing.xxs)
         .background(Color.surface)
+        .overlay(Capsule().strokeBorder(Color.white.opacity(0.06), lineWidth: 1))
         .clipShape(Capsule())
     }
 
@@ -106,6 +138,28 @@ struct MeasurementResultView: View {
         }
     }
 
+    /// Renders `ShareCardView` off-screen to a PNG file so `ShareLink` has a
+    /// stable `Transferable` `URL` to hand off — more reliable across share
+    /// destinations (Messages, Instagram, AirDrop) than an in-memory image.
+    private func renderShareCard() {
+        let card = ShareCardView(
+            heightInches: result.heightInches,
+            jumpTypeLabel: result.jumpType == .standing ? "Standing Vert" : "Approach Jump",
+            date: .now,
+            takeoffImage: takeoffThumbnail,
+            landingImage: landingThumbnail
+        )
+        let renderer = ImageRenderer(content: card)
+        renderer.scale = 3
+        guard let uiImage = renderer.uiImage else { return }
+        shareCardImage = Image(uiImage: uiImage)
+
+        guard let data = uiImage.pngData() else { return }
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("vertmax-vert-\(UUID().uuidString).png")
+        try? data.write(to: url)
+        shareCardURL = url
+    }
+
     private func loadThumbnails() async {
         let generator = AVAssetImageGenerator(asset: AVURLAsset(url: videoURL))
         generator.appliesPreferredTrackTransform = true
@@ -135,6 +189,7 @@ struct MeasurementResultView: View {
         )
         modelContext.insert(measurement)
         try? modelContext.save()
+        WidgetSnapshotRefresher.refresh(context: modelContext)
 
         onSaved()
     }

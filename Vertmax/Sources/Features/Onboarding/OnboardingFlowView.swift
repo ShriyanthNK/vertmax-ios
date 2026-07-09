@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 private enum OnboardingStepKind: Hashable {
-    case sport, jumpType, goal, equipment, experience, injury, building, reveal
+    case sport, jumpType, goal, equipment, experience, injury, building, widgetPromo, reveal
 }
 
 /// 5-tap Q&A onboarding (PRD §5.1), followed by a "building your program"
@@ -24,13 +24,13 @@ struct OnboardingFlowView: View {
     private var steps: [OnboardingStepKind] {
         var s: [OnboardingStepKind] = [.sport]
         if answers.sport.asksJumpTypePreference { s.append(.jumpType) }
-        s.append(contentsOf: [.goal, .equipment, .experience, .injury, .building, .reveal])
+        s.append(contentsOf: [.goal, .equipment, .experience, .injury, .building, .widgetPromo, .reveal])
         return s
     }
 
     private var currentKind: OnboardingStepKind { steps[stepIndex] }
     private var showsBackChevron: Bool {
-        stepIndex > 0 && currentKind != .building && currentKind != .reveal
+        stepIndex > 0 && currentKind != .building && currentKind != .widgetPromo && currentKind != .reveal
     }
 
     var body: some View {
@@ -50,6 +50,8 @@ struct OnboardingFlowView: View {
                     case .injury: injuryStep
                     case .building:
                         BuildingProgramView(onFinished: advance)
+                    case .widgetPromo:
+                        WidgetPromoView(onContinue: advance)
                     case .reveal:
                         ProgramRevealView(
                             program: assignedProgram,
@@ -198,7 +200,7 @@ struct OnboardingFlowView: View {
         VStack(alignment: .leading, spacing: Spacing.md) {
             VStack(alignment: .leading, spacing: Spacing.xxs) {
                 Text(title)
-                    .font(VertFont.title)
+                    .font(VertFont.screenTitle)
                     .foregroundStyle(.textPrimary)
                 if let subtitle {
                     Text(subtitle)
@@ -237,9 +239,9 @@ struct OnboardingFlowView: View {
                 Spacer()
             }
             .padding(Spacing.md)
-            .background(Color.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Radius.md))
+            .cardStyle()
         }
+        .pressableRow()
     }
 
     private func advance() {
@@ -288,7 +290,7 @@ private struct BuildingProgramView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.lg) {
             Text("Building Your Program…")
-                .font(VertFont.title)
+                .font(VertFont.screenTitle)
                 .foregroundStyle(.textPrimary)
                 .padding(.top, Spacing.lg)
 
@@ -298,6 +300,8 @@ private struct BuildingProgramView: View {
                         Image(systemName: i < checkedCount ? "checkmark.circle.fill" : "circle")
                             .font(.system(size: 20))
                             .foregroundStyle(i < checkedCount ? .voltGreen : .textMuted)
+                            .scaleEffect(i == checkedCount - 1 ? 1.15 : 1)
+                            .animation(.spring(response: 0.35, dampingFraction: 0.5), value: checkedCount)
                         Text(items[i])
                             .font(VertFont.body(16, weight: i < checkedCount ? .semibold : .regular))
                             .foregroundStyle(i < checkedCount ? .textPrimary : .textMuted)
@@ -312,6 +316,106 @@ private struct BuildingProgramView: View {
             }
             try? await Task.sleep(for: .milliseconds(400))
             onFinished()
+        }
+    }
+}
+
+/// iOS has no API for an app to add its own widget — the best any app can
+/// do is show the user how. Placed after the anticipation beat and before
+/// the reveal so it doesn't interrupt the payoff moment, but still lands
+/// while attention is high. Skippable: nothing here is required to use the
+/// app, and nagging about it later would just be annoying.
+private struct WidgetPromoView: View {
+    let onContinue: () -> Void
+
+    var body: some View {
+        VStack(spacing: Spacing.lg) {
+            Spacer(minLength: Spacing.md)
+
+            widgetMock
+                .frame(width: 170)
+
+            VStack(spacing: Spacing.xs) {
+                Text("Add Vertmax to Your Home Screen")
+                    .font(VertFont.screenTitle)
+                    .foregroundStyle(.textPrimary)
+                    .multilineTextAlignment(.center)
+                Text("See your best vert and streak at a glance — no need to open the app.")
+                    .font(VertFont.bodyText)
+                    .foregroundStyle(.textMuted)
+                    .multilineTextAlignment(.center)
+            }
+
+            instructionsCard
+
+            Spacer(minLength: Spacing.md)
+
+            VStack(spacing: Spacing.sm) {
+                Button("Got It", action: onContinue)
+                    .buttonStyle(VoltButtonStyle())
+
+                Button("Maybe Later", action: onContinue)
+                    .font(VertFont.caption)
+                    .foregroundStyle(.textMuted)
+            }
+        }
+        .padding(.top, Spacing.lg)
+    }
+
+    /// A mockup, not the live widget — this runs in the main app target,
+    /// not the widget extension, so it's illustrative rather than driven by
+    /// real WidgetKit data. Uses the same tokens as the real widget so it
+    /// still reads as an accurate preview.
+    private var widgetMock: some View {
+        VStack(alignment: .leading, spacing: Spacing.xxs) {
+            Text("BEST VERT")
+                .font(VertFont.eyebrow)
+                .foregroundStyle(.textMuted)
+                .eyebrowTracking()
+            HStack(alignment: .firstTextBaseline, spacing: 2) {
+                Text("28.5")
+                    .font(VertFont.numeric(28, weight: .semibold))
+                    .foregroundStyle(.voltGreen)
+                Text("in")
+                    .font(VertFont.numeric(12, weight: .medium))
+                    .foregroundStyle(.textMuted)
+            }
+            Spacer(minLength: Spacing.xxs)
+            HStack(spacing: 3) {
+                Image(systemName: "flame.fill")
+                    .font(.system(size: 10))
+                Text("4 day streak")
+                    .font(VertFont.caption)
+            }
+            .foregroundStyle(.voltGreen)
+        }
+        .padding(Spacing.md)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(height: 155)
+        .cardStyle()
+    }
+
+    private var instructionsCard: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            instructionRow(number: "1", text: "Long-press your Home Screen")
+            instructionRow(number: "2", text: "Tap the + in the top corner")
+            instructionRow(number: "3", text: "Search \"Vertmax\" and add the widget")
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(Spacing.md)
+        .cardStyle()
+    }
+
+    private func instructionRow(number: String, text: String) -> some View {
+        HStack(spacing: Spacing.sm) {
+            Text(number)
+                .font(VertFont.numeric(13, weight: .semibold))
+                .foregroundStyle(.voltGreen)
+                .frame(width: 20)
+            Text(text)
+                .font(VertFont.caption)
+                .foregroundStyle(.textPrimary)
+            Spacer(minLength: 0)
         }
     }
 }
@@ -332,7 +436,7 @@ private struct ProgramRevealView: View {
                     .font(.system(size: 36))
                     .foregroundStyle(.voltGreen)
                 Text("Your Program Is Ready")
-                    .font(VertFont.title)
+                    .font(VertFont.screenTitle)
                     .foregroundStyle(.textPrimary)
             }
             .padding(.top, Spacing.lg)
@@ -349,8 +453,7 @@ private struct ProgramRevealView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(Spacing.md)
-                .background(Color.surface)
-                .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
+                .cardStyle(accent: .voltGreen)
             }
 
             VStack(alignment: .leading, spacing: Spacing.sm) {
@@ -361,15 +464,8 @@ private struct ProgramRevealView: View {
             Spacer(minLength: Spacing.lg)
 
             VStack(spacing: Spacing.sm) {
-                Button(action: onMeasureNow) {
-                    Text("Take Your First Measurement")
-                        .font(VertFont.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, Spacing.sm)
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.voltGreen)
-                .foregroundStyle(.ink)
+                Button("Take Your First Measurement", action: onMeasureNow)
+                    .buttonStyle(VoltButtonStyle())
 
                 Button("Explore My Program First", action: onExploreLater)
                     .font(VertFont.caption)
@@ -404,7 +500,7 @@ private struct InjuryCautionView: View {
                     .font(.system(size: 40))
                     .foregroundStyle(.stopRed)
                 Text("Train Smart")
-                    .font(VertFont.title)
+                    .font(VertFont.screenTitle)
                     .foregroundStyle(.textPrimary)
                 Text("Vertmax isn't a substitute for medical advice. If you have current pain or a recent lower-body injury, please see a physical therapist or doctor before starting a jump training program. We'll route you to our most conservative program, but you should still get cleared before doing any plyometric work.")
                     .font(VertFont.bodyText)
@@ -413,9 +509,7 @@ private struct InjuryCautionView: View {
                     .padding(.horizontal, Spacing.md)
                 Spacer()
                 Button("I Understand, Continue", action: onContinue)
-                    .buttonStyle(.borderedProminent)
-                    .tint(.voltGreen)
-                    .foregroundStyle(.ink)
+                    .buttonStyle(VoltButtonStyle())
             }
             .padding(Spacing.lg)
         }

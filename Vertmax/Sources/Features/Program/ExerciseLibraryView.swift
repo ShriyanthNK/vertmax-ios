@@ -49,27 +49,15 @@ struct ExerciseLibraryView: View {
     private var filterBar: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: Spacing.xs) {
-                filterChip("All", isSelected: categoryFilter == nil) { categoryFilter = nil }
+                ChipToggle(title: "All", isSelected: categoryFilter == nil) { categoryFilter = nil }
                 ForEach(ExerciseCategory.allCases, id: \.self) { category in
-                    filterChip(category.displayName, isSelected: categoryFilter == category) {
+                    ChipToggle(title: category.displayName, isSelected: categoryFilter == category) {
                         categoryFilter = categoryFilter == category ? nil : category
                     }
                 }
             }
             .padding(.horizontal, Spacing.lg)
             .padding(.vertical, Spacing.sm)
-        }
-    }
-
-    private func filterChip(_ title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(title)
-                .font(VertFont.body(13, weight: .semibold))
-                .padding(.horizontal, Spacing.sm)
-                .padding(.vertical, Spacing.xs)
-                .background(isSelected ? Color.voltGreen : Color.surface)
-                .foregroundStyle(isSelected ? .ink : .textPrimary)
-                .clipShape(Capsule())
         }
     }
 
@@ -100,13 +88,7 @@ struct ExerciseLibraryView: View {
                         .font(VertFont.body(16, weight: .medium))
                         .foregroundStyle(.textPrimary)
                     if exercise.isPlyometric {
-                        Text("PLYO")
-                            .font(VertFont.body(9, weight: .bold))
-                            .foregroundStyle(.ink)
-                            .padding(.horizontal, Spacing.xxs)
-                            .padding(.vertical, 2)
-                            .background(Color.voltGreen)
-                            .clipShape(Capsule())
+                        PlyoBadge()
                     }
                 }
                 Text("\(exercise.equipmentLevel.displayName) · \(exercise.difficulty.displayName)")

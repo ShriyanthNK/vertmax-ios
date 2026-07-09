@@ -9,10 +9,12 @@ struct ProfileView: View {
                 Color.ink.ignoresSafeArea()
 
                 VStack(spacing: Spacing.lg) {
-                    VStack(spacing: Spacing.xxs) {
+                    VStack(spacing: Spacing.sm) {
                         Image(systemName: "person.crop.circle.fill")
                             .font(.system(size: 56))
                             .foregroundStyle(.textMuted)
+                            .padding(Spacing.xs)
+                            .background(Circle().fill(Color.surface))
                         if let email = supabase.session?.user.email {
                             Text(email)
                                 .font(VertFont.body(15))
@@ -23,16 +25,10 @@ struct ProfileView: View {
 
                     Spacer()
 
-                    Button {
+                    Button("Sign Out") {
                         Task { await supabase.signOut() }
-                    } label: {
-                        Text("Sign Out")
-                            .font(VertFont.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, Spacing.sm)
                     }
-                    .buttonStyle(.bordered)
-                    .tint(.stopRed)
+                    .buttonStyle(OutlineButtonStyle())
                 }
                 .padding(Spacing.lg)
             }
