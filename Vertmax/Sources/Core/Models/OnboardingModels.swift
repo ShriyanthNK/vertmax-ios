@@ -95,6 +95,39 @@ enum ExperienceLevel: String, Codable, CaseIterable {
     }
 }
 
+/// Multi-select frustrations surfaced on `OnboardingPainPointsView` and
+/// mirrored back with a specific fix on `OnboardingSolutionView`. Kept
+/// local to the onboarding session only — not persisted to `UserProfile` or
+/// synced, since there's no backend column for it and it's not needed past
+/// the flow that reads it.
+enum PainPoint: String, CaseIterable, Hashable {
+    case noPlan, cantMeasure, gotHurt, genericPlans, noTime, plateaued, noGym
+
+    var label: String {
+        switch self {
+        case .noPlan: return "I don't know which exercises actually build vert"
+        case .cantMeasure: return "I train hard but can't tell if it's working"
+        case .gotHurt: return "I've gotten hurt or sore trying to jump higher"
+        case .genericPlans: return "Generic workout plans don't fit my sport"
+        case .noTime: return "I don't have a lot of time to train"
+        case .plateaued: return "I hit a plateau and stopped improving"
+        case .noGym: return "I don't have access to a real gym"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .noPlan: return "questionmark.circle"
+        case .cantMeasure: return "ruler"
+        case .gotHurt: return "bandage"
+        case .genericPlans: return "list.bullet.rectangle"
+        case .noTime: return "clock"
+        case .plateaued: return "chart.line.downtrend.xyaxis"
+        case .noGym: return "dumbbell"
+        }
+    }
+}
+
 struct OnboardingAnswers {
     var sport: Sport = .basketball
     var jumpType: JumpType = .standing
@@ -102,4 +135,5 @@ struct OnboardingAnswers {
     var equipment: EquipmentAccess = .bodyweight
     var experience: ExperienceLevel = .new
     var hasInjury: Bool = false
+    var painPoints: Set<PainPoint> = []
 }

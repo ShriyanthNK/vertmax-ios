@@ -28,13 +28,14 @@ struct SignInView: View {
                         .frame(width: 96, height: 96)
                         .reveal(appeared)
                     VStack(spacing: Spacing.xs) {
-                        Text("VERTMAX")
-                            .font(VertFont.display(38))
+                        Text("Save Your Program")
+                            .font(VertFont.display(32))
                             .foregroundStyle(.textPrimary)
-                            .eyebrowTracking()
-                        Text("Measure it. Train for it. Prove it.")
+                            .multilineTextAlignment(.center)
+                        Text("Create a free account so your program and progress sync across devices.")
                             .font(VertFont.bodyText)
                             .foregroundStyle(.textMuted)
+                            .multilineTextAlignment(.center)
                     }
                     .reveal(appeared, delay: 0.1)
                 }

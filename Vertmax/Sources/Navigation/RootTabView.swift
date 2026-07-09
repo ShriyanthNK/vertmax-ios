@@ -1,8 +1,11 @@
 import SwiftUI
 import SwiftData
 
-/// Top-level switch: signed-out users see the auth gate, signed-in users
-/// without a profile see onboarding, everyone else lands in the tab bar.
+/// Top-level switch: onboarding runs before any auth check — a new user
+/// answers the questionnaire and sees their program before we ever ask them
+/// to create an account, since asking cold with nothing delivered yet is
+/// the surest way to lose them. Sign-in becomes a soft gate only once
+/// onboarding is done and there's a program worth saving.
 struct RootTabView: View {
     @StateObject private var supabase = SupabaseManager.shared
     @Environment(\.modelContext) private var modelContext
@@ -23,12 +26,10 @@ struct RootTabView: View {
 
     var body: some View {
         Group {
-            if isSignedIn {
-                if profiles.isEmpty && !justFinishedOnboarding {
-                    OnboardingFlowView(onComplete: { justFinishedOnboarding = true })
-                } else {
-                    MainTabView()
-                }
+            if profiles.isEmpty && !justFinishedOnboarding {
+                OnboardingFlowView(onComplete: { justFinishedOnboarding = true })
+            } else if isSignedIn {
+                MainTabView()
             } else {
                 #if DEBUG
                 SignInView(onDebugBypass: { debugBypassAuth = true })

@@ -2,7 +2,12 @@ import SwiftUI
 import SwiftData
 
 private enum OnboardingStepKind: Hashable {
-    case sport, jumpType, goal, equipment, experience, injury, building, widgetPromo, reveal
+    case welcome, sport, jumpType, goal, painPoints, tinderCards, socialProof, solution, comparison
+    case equipment, experience, demoPick, demoOutput, injury, building, widgetPromo, reveal, paywall
+}
+
+private enum PostPaywallDestination {
+    case measure, explore
 }
 
 /// 5-tap Q&A onboarding (PRD §5.1), followed by a "building your program"
@@ -20,17 +25,25 @@ struct OnboardingFlowView: View {
     @State private var assignedProgram: Program?
     @State private var showMeasurementFlow = false
     @State private var hapticTick = 0
+    @State private var postPaywallDestination: PostPaywallDestination = .explore
+    @State private var selectedDemoDrillNames: Set<String> = []
 
     private var steps: [OnboardingStepKind] {
-        var s: [OnboardingStepKind] = [.sport]
+        var s: [OnboardingStepKind] = [.welcome, .sport]
         if answers.sport.asksJumpTypePreference { s.append(.jumpType) }
-        s.append(contentsOf: [.goal, .equipment, .experience, .injury, .building, .widgetPromo, .reveal])
+        s.append(contentsOf: [
+            .goal, .painPoints, .tinderCards, .socialProof, .solution, .comparison,
+            .equipment, .experience, .demoPick, .demoOutput,
+            .injury, .building, .widgetPromo, .reveal, .paywall
+        ])
         return s
     }
 
     private var currentKind: OnboardingStepKind { steps[stepIndex] }
     private var showsBackChevron: Bool {
-        stepIndex > 0 && currentKind != .building && currentKind != .widgetPromo && currentKind != .reveal
+        stepIndex > 0
+            && currentKind != .building && currentKind != .widgetPromo
+            && currentKind != .reveal && currentKind != .paywall && currentKind != .demoOutput
     }
 
     var body: some View {
@@ -42,11 +55,27 @@ struct OnboardingFlowView: View {
 
                 Group {
                     switch currentKind {
+                    case .welcome:
+                        OnboardingWelcomeView(onGetStarted: advance)
                     case .sport: sportStep
                     case .jumpType: jumpTypeStep
                     case .goal: goalStep
+                    case .painPoints:
+                        OnboardingPainPointsView(selected: $answers.painPoints, onContinue: advance)
+                    case .tinderCards:
+                        OnboardingTinderCardsView(onFinished: advance)
+                    case .socialProof:
+                        OnboardingSocialProofView(onContinue: advance)
+                    case .solution:
+                        OnboardingSolutionView(sport: answers.sport, painPoints: answers.painPoints, onContinue: advance)
+                    case .comparison:
+                        OnboardingComparisonView(onContinue: advance)
                     case .equipment: equipmentStep
                     case .experience: experienceStep
+                    case .demoPick:
+                        OnboardingDemoPickView(equipment: answers.equipment, selected: $selectedDemoDrillNames, onContinue: advance)
+                    case .demoOutput:
+                        OnboardingDemoOutputView(selectedNames: selectedDemoDrillNames, equipment: answers.equipment, onContinue: advance)
                     case .injury: injuryStep
                     case .building:
                         BuildingProgramView(onFinished: advance)
@@ -57,9 +86,17 @@ struct OnboardingFlowView: View {
                             program: assignedProgram,
                             sport: answers.sport,
                             goal: answers.goal,
-                            onMeasureNow: { showMeasurementFlow = true },
-                            onExploreLater: onComplete
+                            onMeasureNow: {
+                                postPaywallDestination = .measure
+                                advance()
+                            },
+                            onExploreLater: {
+                                postPaywallDestination = .explore
+                                advance()
+                            }
                         )
+                    case .paywall:
+                        PaywallView(program: assignedProgram, onContinue: continueAfterPaywall)
                     }
                 }
                 .id(currentKind)
@@ -67,6 +104,12 @@ struct OnboardingFlowView: View {
                     insertion: .move(edge: .trailing).combined(with: .opacity),
                     removal: .move(edge: .leading).combined(with: .opacity)
                 ))
+                // Steps with a `.frame(maxHeight: .infinity)` ScrollView
+                // (pain points, demo pick) need to win available space
+                // outright — without this they split it 50/50 with the
+                // Spacer below, so the scroll area was still too short to
+                // reach the last rows even after making it flexible.
+                .layoutPriority(1)
 
                 Spacer()
             }
@@ -250,6 +293,13 @@ struct OnboardingFlowView: View {
             if stepIndex < steps.count - 1 {
                 stepIndex += 1
             }
+        }
+    }
+
+    private func continueAfterPaywall() {
+        switch postPaywallDestination {
+        case .measure: showMeasurementFlow = true
+        case .explore: onComplete()
         }
     }
 
@@ -488,6 +538,84 @@ private struct ProgramRevealView: View {
             Spacer()
         }
         .padding(.horizontal, Spacing.xs)
+    }
+}
+
+/// Placeholder paywall — the "unlock what you just built" beat the
+/// payoff-before-paywall pattern above sets up. Renders real UI so the step
+/// is wired end-to-end, but purchase behavior is entirely TODO: there's no
+/// StoreKit/RevenueCat product wiring yet, so both buttons just continue —
+/// this never gates access to the app until that's connected.
+private struct PaywallView: View {
+    let program: Program?
+    let onContinue: () -> Void
+
+    var body: some View {
+        ZStack {
+            Color.ink.ignoresSafeArea()
+            VStack(spacing: Spacing.lg) {
+                Spacer(minLength: Spacing.md)
+
+                VStack(spacing: Spacing.xs) {
+                    Image(systemName: "bolt.fill")
+                        .font(.system(size: 32))
+                        .foregroundStyle(.voltGreen)
+                    Text("Unlock Your Full Program")
+                        .font(VertFont.screenTitle)
+                        .foregroundStyle(.textPrimary)
+                        .multilineTextAlignment(.center)
+                    if let program {
+                        Text(program.name)
+                            .font(VertFont.headline)
+                            .foregroundStyle(.voltGreen)
+                    }
+                }
+
+                VStack(alignment: .leading, spacing: Spacing.sm) {
+                    benefitRow(icon: "chart.line.uptrend.xyaxis", text: "Every week of your training program")
+                    benefitRow(icon: "camera.fill", text: "Unlimited frame-accurate jump measurements")
+                    benefitRow(icon: "bubble.left.and.bubble.right.fill", text: "Coach guidance tailored to your goal")
+                }
+                .padding(Spacing.md)
+                .cardStyle()
+
+                Spacer(minLength: Spacing.md)
+
+                // TODO: replace with the real StoreKit product + price
+                // (`Product.displayPrice`) once an App Store Connect
+                // subscription is configured, and gate `onContinue` behind
+                // an actual purchase/restore instead of always succeeding.
+                VStack(spacing: Spacing.sm) {
+                    Button("Start 7-Day Free Trial", action: onContinue)
+                        .buttonStyle(VoltButtonStyle())
+                    Text("Then $59.99/year. Cancel anytime.")
+                        .font(VertFont.caption)
+                        .foregroundStyle(.textMuted)
+
+                    HStack(spacing: Spacing.md) {
+                        Button("Restore Purchases") {
+                            // TODO: call StoreKit `AppStore.sync()` / RevenueCat restore.
+                        }
+                        Button("Maybe Later", action: onContinue)
+                    }
+                    .font(VertFont.caption)
+                    .foregroundStyle(.textMuted)
+                }
+            }
+            .padding(Spacing.lg)
+        }
+    }
+
+    private func benefitRow(icon: String, text: String) -> some View {
+        HStack(spacing: Spacing.sm) {
+            Image(systemName: icon)
+                .foregroundStyle(.voltGreen)
+                .frame(width: 24)
+            Text(text)
+                .font(VertFont.body(15))
+                .foregroundStyle(.textPrimary)
+            Spacer()
+        }
     }
 }
 

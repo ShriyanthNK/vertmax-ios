@@ -1,10 +1,12 @@
 import SwiftUI
 import PhotosUI
 import UniformTypeIdentifiers
+import AVFoundation
 
 private enum MeasurementStep {
     case chooseType
     case chooseCaptureMethod(JumpType)
+    case cameraPriming(JumpType)
     case capture(JumpType)
     case importVideo(JumpType)
     case processing(URL, JumpType)
@@ -42,9 +44,21 @@ struct MeasurementFlowView: View {
 
         case .chooseCaptureMethod(let jumpType):
             CaptureMethodPickerView(
-                onRecord: { step = .capture(jumpType) },
+                onRecord: {
+                    if AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined {
+                        step = .cameraPriming(jumpType)
+                    } else {
+                        step = .capture(jumpType)
+                    }
+                },
                 onImport: { step = .importVideo(jumpType) },
                 onBack: { step = .chooseType }
+            )
+
+        case .cameraPriming(let jumpType):
+            CameraPermissionPrimingView(
+                onEnable: { step = .capture(jumpType) },
+                onNotNow: { step = .chooseCaptureMethod(jumpType) }
             )
 
         case .capture(let jumpType):
@@ -135,6 +149,71 @@ private struct JumpTypePickerView: View {
             .cardStyle()
         }
         .pressableRow()
+    }
+}
+
+/// Primes the camera permission before the system dialog fires. A cold
+/// `AVCaptureDevice.requestAccess` prompt with no context converts far worse
+/// than one shown after the user understands why — this is the one-shot
+/// ask (deny means a Settings deep-link forever), so it's worth the beat.
+private struct CameraPermissionPrimingView: View {
+    let onEnable: () -> Void
+    let onNotNow: () -> Void
+
+    var body: some View {
+        ZStack {
+            Color.ink.ignoresSafeArea()
+            VStack(spacing: Spacing.lg) {
+                Spacer(minLength: Spacing.md)
+
+                Image(systemName: "camera.fill")
+                    .font(.system(size: 40))
+                    .foregroundStyle(.voltGreen)
+
+                VStack(spacing: Spacing.xs) {
+                    Text("See Exactly How High You Jumped")
+                        .font(VertFont.screenTitle)
+                        .foregroundStyle(.textPrimary)
+                        .multilineTextAlignment(.center)
+                    Text("Vertmax times your takeoff and landing to the frame — no tape measure, no guessing.")
+                        .font(VertFont.bodyText)
+                        .foregroundStyle(.textMuted)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(.horizontal, Spacing.lg)
+
+                VStack(alignment: .leading, spacing: Spacing.sm) {
+                    primingRow(icon: "timer", text: "Detects takeoff and landing automatically")
+                    primingRow(icon: "checkmark.seal", text: "Your video stays on your device")
+                    primingRow(icon: "arrow.triangle.2.circlepath", text: "Re-measure anytime to track progress")
+                }
+                .padding(Spacing.md)
+                .cardStyle()
+
+                Spacer(minLength: Spacing.md)
+
+                VStack(spacing: Spacing.sm) {
+                    Button("Enable Camera", action: onEnable)
+                        .buttonStyle(VoltButtonStyle())
+                    Button("Not Now", action: onNotNow)
+                        .font(VertFont.caption)
+                        .foregroundStyle(.textMuted)
+                }
+            }
+            .padding(Spacing.lg)
+        }
+    }
+
+    private func primingRow(icon: String, text: String) -> some View {
+        HStack(spacing: Spacing.sm) {
+            Image(systemName: icon)
+                .foregroundStyle(.voltGreen)
+                .frame(width: 24)
+            Text(text)
+                .font(VertFont.body(15))
+                .foregroundStyle(.textPrimary)
+            Spacer()
+        }
     }
 }
 
