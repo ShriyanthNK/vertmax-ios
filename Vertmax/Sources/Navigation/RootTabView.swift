@@ -5,6 +5,8 @@ import SwiftData
 /// without a profile see onboarding, everyone else lands in the tab bar.
 struct RootTabView: View {
     @StateObject private var supabase = SupabaseManager.shared
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
     @Query private var profiles: [UserProfile]
     @State private var justFinishedOnboarding = false
     #if DEBUG
@@ -33,6 +35,16 @@ struct RootTabView: View {
                 #else
                 SignInView()
                 #endif
+            }
+        }
+        .onChange(of: isSignedIn) { _, signedIn in
+            if signedIn {
+                Task { await SyncEngine.reconcile(context: modelContext) }
+            }
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active && isSignedIn {
+                Task { await SyncEngine.reconcile(context: modelContext) }
             }
         }
     }

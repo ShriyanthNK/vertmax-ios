@@ -271,6 +271,7 @@ struct OnboardingFlowView: View {
         )
         modelContext.insert(profile)
         try? modelContext.save()
+        SyncEngine.push(profile: profile)
     }
 }
 

@@ -68,6 +68,7 @@
 		C11E29A996C9B8A493B619D0 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA9E5087AAB11F5BB63E7B9 /* SignInView.swift */; };
 		C1688469BEEF383BDBA2D786 /* VertmaxWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3DF03DE1C64BF17E5C65D856 /* VertmaxWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CBD5085EBBCE2540D5FC5EB8 /* OnboardingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61438C237E9DC1563351BA84 /* OnboardingModels.swift */; };
+		CEFEAB4E74CE9007CDBCAE86 /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5C205A3B6460522AB2605 /* SyncEngine.swift */; };
 		D293B74303221597BE8410D5 /* IBMPlexMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E89AFCDEA5FB11E9A6FC3E2B /* IBMPlexMono-Bold.ttf */; };
 		D969AD7AC5C0413F462D192C /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549B78E3C6BD3BE671D1F6A /* Typography.swift */; };
 		DB50A4B8283495095942779C /* beginner-gym.json in Resources */ = {isa = PBXBuildFile; fileRef = 06065A81408A5A6B5F3C677F /* beginner-gym.json */; };
@@ -153,6 +154,7 @@
 		810855A73A4B54A634015A75 /* IBMPlexMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Regular.ttf"; sourceTree = "<group>"; };
 		864EC8C6618B8CBA8F652FDE /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8715AC28A9487FEA6DC1B449 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		87A5C205A3B6460522AB2605 /* SyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncEngine.swift; sourceTree = "<group>"; };
 		8E9EA8D51F683958047E4FD4 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		90225ACF4FEECC24A8746D13 /* JumpMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpMeasurement.swift; sourceTree = "<group>"; };
 		956B75C9B4FD9316EEEEA6D3 /* ProgramLibraryBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramLibraryBrowserView.swift; sourceTree = "<group>"; };
@@ -195,6 +197,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04DEBBDE377D4867540B5323 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				87A5C205A3B6460522AB2605 /* SyncEngine.swift */,
+			);
+			path = Sync;
+			sourceTree = "<group>";
+		};
 		0B93366E7D2181647DE26DA9 /* Program */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +308,7 @@
 				D44D74551AD1501F4BD785A0 /* Models */,
 				46C6271DE32D42AD3C59ADE5 /* Persistence */,
 				B2CD6ACF86B56552D32805A9 /* Supabase */,
+				04DEBBDE377D4867540B5323 /* Sync */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -621,6 +632,7 @@
 				05E1206D35421D75B6B464AB /* Spacing.swift in Sources */,
 				4C03225163003DF514AE7CF2 /* StreakCalculator.swift in Sources */,
 				919D7091B35BF9BB072ABB96 /* SupabaseManager.swift in Sources */,
+				CEFEAB4E74CE9007CDBCAE86 /* SyncEngine.swift in Sources */,
 				AB041241A2DD55EDEEBA9758 /* TrajectoryArc.swift in Sources */,
 				3EE9F15A66922D42CFC36955 /* Typography.swift in Sources */,
 				567A2F25D658AD083A86F96F /* UserProfile.swift in Sources */,

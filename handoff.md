@@ -3,8 +3,8 @@
 ## What you're trying to do
 
 Vertmax is a SwiftUI iOS app (SwiftData local storage, Supabase for Google
-auth) for measuring and training vertical jump. Across this session the work
-was, in order:
+auth + data sync) for measuring and training vertical jump. Work so far,
+across two sessions, in order:
 
 1. Redesign the entire UI to look professional/distinctive (custom
    typography, a real design system, motion) instead of the placeholder
@@ -16,6 +16,8 @@ was, in order:
    everything possible, fix any bugs, use any of the skills you have" — a
    full code review + security review + accessibility sweep + manual audit,
    then fix everything found.
+4. Supabase cloud sync (session 2) — the biggest gap flagged at the end of
+   session 1. Metadata-only (no video upload — see "Key decisions").
 
 ## What's done
 
@@ -61,17 +63,62 @@ hadn't touched, then fixed everything CONFIRMED/PLAUSIBLE:
   was hand-copied 2–3x); consolidated "days since last measurement" into
   `StreakCalculator.daysSince`
 
-Both commits are pushed to `origin/master`. Build verified clean via
-`xcodebuild` after every batch of changes, not just assumed from reading
-code. Visual verification done via temporary debug-seed-data +
+**Supabase cloud sync** (session 2, uncommitted at time of writing — see
+"Exactly how to continue"):
+- 4 Postgres tables in the `Vert GPT` Supabase project (`dnrzagutlpqoixqrjtpt`):
+  `user_profiles`, `jump_measurements`, `session_completions`,
+  `custom_programs`. Each has owner-scoped RLS (`auth.uid() = user_id` on
+  select/insert/update/delete) — confirmed clean via the security advisor.
+  Applied directly through the Supabase MCP (`apply_migration`), not the
+  Supabase CLI (not installed in this environment).
+- `Vertmax/Sources/Core/Sync/SyncEngine.swift` — the whole sync layer:
+  private snake_case `Codable` DTOs per table, `push(...)` functions
+  (fire-and-forget, best-effort, called right after a local
+  insert/delete — same convention as `WidgetSnapshotRefresher`, the only
+  precedent for "call this after a mutation" in the codebase), and a
+  `reconcile(context:)` that pushes every local row (idempotent upsert,
+  catches anything a best-effort push missed while offline) then pulls the
+  user's full remote state and inserts whatever's missing locally.
+- Wired into the 6 places the 4 synced models are actually created/deleted:
+  `OnboardingFlowView` (profile), `HomeView.completeSession` +
+  `ProgramView.toggleCompletion` (both insert *and* delete branches of the
+  latter), `ManualEntryView`/`MeasurementResultView` (measurements),
+  `ProgramBuilderView` (custom programs).
+- `reconcile(context:)` runs from `RootTabView` on two triggers: the
+  signed-in transition (`.onChange(of: isSignedIn)`) and app foreground
+  (`.onChange(of: scenePhase)`, `== .active`) — both live in `RootTabView`
+  rather than `VertmaxApp` deliberately, to avoid relying on `Scene`'s
+  `onChange` (uncertain API surface) when `View.onChange` is the
+  well-established pattern and `RootTabView` already had `modelContext`.
+- **Verified live**, not just build-checked: signed in with a real Google
+  account on the simulator, walked through onboarding, logged a manual
+  measurement, checked off a program session, and built a custom program —
+  then queried the 4 Supabase tables directly and confirmed all 4 rows
+  landed with correct field values (including the `custom_programs.sessions`
+  jsonb array decoding to the right session count).
+
+Both session-1 commits are pushed to `origin/master`. Build verified clean
+via `xcodebuild` after every batch of changes, not just assumed from
+reading code. Visual verification done via temporary debug-seed-data +
 debug-auto-bypass hacks in `VertmaxApp.swift`/`RootTabView.swift` (see
 "How to continue" below) — always reverted before committing.
 
 ## What's NOT done (real gaps, not yet started)
 
-- **Supabase sync** — auth works, but SwiftData is 100% local-only. No
-  cloud backup/sync. Flagged to the user as the biggest remaining gap; they
-  just installed the Supabase skill/plugin, so this is likely next.
+- **Video sync** — deliberate scope cut, not an oversight. Cloud sync
+  covers all 4 SwiftData models' structured data, but `JumpMeasurement`'s
+  recorded video file never leaves the device (`videoFilename` isn't even
+  a synced column). Reinstalling/switching devices recovers all your
+  numbers and history but not old video clips. Revisit only if a
+  video-history UI ever gets built — there isn't one today, even locally
+  (see the pre-existing sharing gap below).
+- **Session-completion delete-propagation is implemented but not verified
+  live** — `SyncEngine.reconcileCompletions` is supposed to delete a local
+  completion if it disappeared remotely (e.g. unchecked on another device),
+  but only when this round's push is confirmed to have succeeded first (to
+  avoid misreading "offline, never pushed" as "deleted elsewhere"). Only
+  the push/insert paths were exercised this session; the cross-device
+  delete path wasn't.
 - **Coach tab** — still a placeholder (`CoachView.swift`), per the app's own
   PRD §5.4.
 - **Zero automated tests** anywhere in the project.
@@ -124,6 +171,22 @@ debug-auto-bypass hacks in `VertmaxApp.swift`/`RootTabView.swift` (see
   Simulator — always returns zero results regardless of the input video.
   That's a hardware limitation (no Neural Engine), not a bug — it's why the
   `#if targetEnvironment(simulator)` fallback exists in `JumpAnalyzer.swift`.
+- **Still can't automate simulator taps** (session 2 confirmed this is
+  still true) — but real OAuth sign-in can't be scripted around anyway
+  (Google's consent screen needs an actual account + browser interaction),
+  so for anything gated behind sign-in the only path is asking the user to
+  tap through the flow themselves, then verifying server-side via SQL
+  afterward. That turned out to be a *better* verification method than the
+  debug-bypass/seed-data tricks from session 1 for this specific feature —
+  it exercises the real auth + network path instead of a local fixture.
+- **The Supabase MCP's `execute_sql`/`get_logs` are auto-mode-gated against
+  reading `auth.users` (or auth service logs) without the user having
+  specifically asked for that data** — a plain "does Google sign-in work"
+  question isn't authorization to pull real emails/PII. Once the user
+  explicitly said "how do I check in supabase," querying `auth.users` (and
+  the app's own tables, scoped to that one `user_id`) was fine. Ask first
+  or wait for an explicit "check X" before querying tables with real user
+  data, even read-only.
 
 ## Key decisions and rationale
 
@@ -165,11 +228,38 @@ debug-auto-bypass hacks in `VertmaxApp.swift`/`RootTabView.swift` (see
   fallback) were confirmed — via `project.pbxproj` inspection and a
   dedicated security-review pass — to compile out of Release builds
   entirely. Not just assumed.
+- **Sync is insert/delete-only per model, deliberately no field-level
+  conflict resolution (no `updatedAt`, no last-write-wins merge).**
+  Checked every mutation site in the codebase first: `UserProfile` and
+  `CustomProgram` are create-once (never edited after creation anywhere in
+  the app), `JumpMeasurement` is append-only, and `SessionCompletion` is
+  the only model ever deleted locally (unchecking a session). Since
+  nothing is ever field-edited post-creation, a plain idempotent upsert
+  keyed by the model's own UUID is sufficient — no CRDT/timestamp-merge
+  machinery needed. If a future feature adds editing (e.g. an "edit
+  profile" screen), this assumption breaks and `reconcile` would need a
+  real conflict-resolution strategy.
+- **Video (`JumpMeasurement.videoFilename`) deliberately excluded from the
+  synced columns** — confirmed via full-codebase grep that no view ever
+  reads a *saved* video back from `PersistenceController.videosDirectory`
+  (only the pre-save temp recording, at save time, for thumbnails/share).
+  Syncing video would mean standing up Supabase Storage + upload/download
+  plumbing for a feature with no UI to consume it on a second device.
+  Confirmed with the user before building rather than assumed.
+- **`reconcile(context:)` triggers live in `RootTabView`, not
+  `VertmaxApp`** — both sign-in (`.onChange(of: isSignedIn)`) and
+  foreground (`.onChange(of: scenePhase)`) needed a `ModelContext`, which
+  `RootTabView` already reads via `@Environment(\.modelContext)`.
+  Deliberately did not add `.onChange` directly on the `WindowGroup`
+  `Scene` in `VertmaxApp` to avoid depending on `Scene.onChange` API
+  specifics when the plain `View.onChange` pattern was already
+  well-established and sufficient.
 
 ## Exactly how to continue
 
 1. `cd ~/developer/vertmax-ios && git log --oneline -5` — confirm `HEAD` is
-   `e07bea7` or later, working tree clean.
+   the Supabase-sync commit (message mentions "sync") or later, working
+   tree clean.
 2. **To build/run**: simulator is `8E3AA816-4745-4565-A8C8-48801C38DB06`
    (iPhone 17 Pro).
    ```
@@ -190,12 +280,23 @@ debug-auto-bypass hacks in `VertmaxApp.swift`/`RootTabView.swift` (see
    with `SIMCTL_CHILD_VERTMAX_SEED_DEMO_DATA=1 xcrun simctl launch ...`, and
    again **revert before committing**. `git diff` before every commit to
    confirm no debug scaffolding leaked in.
-4. **Next most valuable work**, in the priority order discussed with the
-   user: (a) Supabase data sync — likely what they want next, given they
-   just added the Supabase skill; (b) build out the Coach tab; (c) add
-   automated tests (currently zero); (d) verify `JumpAnalyzer`'s real Vision
-   pipeline on an actual device, not just the Simulator fallback.
+   Note: this trick doesn't work for anything gated behind real Supabase
+   auth (sync, in particular) — `debugBypassAuth` skips Supabase sign-in
+   entirely, so there's no `session`/`user_id` and every `SyncEngine` call
+   no-ops. Verifying sync requires the user to actually sign in with a real
+   Google account and use the app, then checking Supabase directly (`open
+   -a Simulator` to bring the window forward for them, then
+   `execute_sql`/MCP against project `dnrzagutlpqoixqrjtpt` once they
+   confirm they've acted — see "What failed" above on asking first).
+4. **Next most valuable work**, in priority order: (a) build out the Coach
+   tab (still `CoachView.swift` placeholder); (b) add automated tests
+   (currently zero); (c) verify `JumpAnalyzer`'s real Vision pipeline on an
+   actual device, not just the Simulator fallback; (d) verify the
+   session-completion delete-propagation path in sync (uncheck a session,
+   confirm the row actually disappears from `session_completions`, ideally
+   simulating a second device by deleting it directly in Supabase and
+   confirming the next `reconcile()` removes it locally too).
 5. If doing another review pass, re-run `code-review` at high effort against
    the actual diff in scope (`git diff HEAD~1...HEAD` or whatever range is
-   relevant) — this session's review was thorough but scoped specifically to
-   the redesign commit, not the whole codebase.
+   relevant) — each session's review was thorough but scoped to that
+   session's own diff, not the whole codebase.

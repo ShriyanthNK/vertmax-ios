@@ -307,7 +307,9 @@ struct HomeView: View {
             $0.programID == programID && $0.weekNumber == weekNumber && $0.sessionID == session.id
         }
         guard !alreadyDone else { return }
-        modelContext.insert(SessionCompletion(programID: programID, weekNumber: weekNumber, sessionID: session.id))
+        let completion = SessionCompletion(programID: programID, weekNumber: weekNumber, sessionID: session.id)
+        modelContext.insert(completion)
         try? modelContext.save()
+        SyncEngine.push(completion: completion)
     }
 }

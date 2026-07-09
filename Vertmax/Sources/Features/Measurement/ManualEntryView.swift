@@ -81,6 +81,7 @@ struct ManualEntryView: View {
         modelContext.insert(measurement)
         try? modelContext.save()
         WidgetSnapshotRefresher.refresh(context: modelContext)
+        SyncEngine.push(measurement: measurement)
         onSaved()
     }
 }

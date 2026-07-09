@@ -167,12 +167,16 @@ struct ProgramView: View {
 
     private func toggleCompletion(session: ProgramSession, weekNumber: Int, isComplete: Bool) {
         if isComplete {
-            if let existing = completions.first(where: { $0.weekNumber == weekNumber && $0.sessionID == session.id }) {
-                modelContext.delete(existing)
-            }
+            guard let existing = completions.first(where: { $0.weekNumber == weekNumber && $0.sessionID == session.id }) else { return }
+            let existingID = existing.id
+            modelContext.delete(existing)
+            try? modelContext.save()
+            SyncEngine.pushDelete(completionID: existingID)
         } else {
-            modelContext.insert(SessionCompletion(programID: program.id, weekNumber: weekNumber, sessionID: session.id))
+            let completion = SessionCompletion(programID: program.id, weekNumber: weekNumber, sessionID: session.id)
+            modelContext.insert(completion)
+            try? modelContext.save()
+            SyncEngine.push(completion: completion)
         }
-        try? modelContext.save()
     }
 }

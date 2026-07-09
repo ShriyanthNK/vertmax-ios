@@ -183,6 +183,7 @@ struct ProgramBuilderView: View {
         let program = CustomProgram(name: name, summary: summary.isEmpty ? "A custom program." : summary, sessions: sessions)
         modelContext.insert(program)
         try? modelContext.save()
+        SyncEngine.push(program: program)
         onSaved(program)
         dismiss()
     }
