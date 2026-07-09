@@ -30,4 +30,13 @@ enum StreakCalculator {
         }
         return streak
     }
+
+    /// Whole calendar days between `date` and now — the shared definition of
+    /// "days since" used for both the in-app retest banner (HomeView) and
+    /// the widget's "Xd since last test" line, so the two can't disagree
+    /// about what "3 days ago" means.
+    static func daysSince(_ date: Date?, calendar: Calendar = .current, today: Date = .now) -> Int? {
+        guard let date else { return nil }
+        return calendar.dateComponents([.day], from: date, to: today).day
+    }
 }

@@ -49,13 +49,7 @@ struct VertmaxWidgetEntryView: View {
             Spacer(minLength: Spacing.xxs)
 
             if entry.snapshot.currentStreak > 0 {
-                HStack(spacing: 3) {
-                    Image(systemName: "flame.fill")
-                        .font(.system(size: 11))
-                    Text("\(entry.snapshot.currentStreak) day streak")
-                        .font(VertFont.caption)
-                }
-                .foregroundStyle(.voltGreen)
+                streakBadge
             } else {
                 Text(lastTestedText)
                     .font(VertFont.caption)
@@ -64,6 +58,16 @@ struct VertmaxWidgetEntryView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Spacing.md)
+    }
+
+    private var streakBadge: some View {
+        HStack(spacing: 3) {
+            Image(systemName: "flame.fill")
+                .font(.system(size: 11))
+            Text("\(entry.snapshot.currentStreak) day streak")
+                .font(VertFont.caption)
+        }
+        .foregroundStyle(.voltGreen)
     }
 
     private var mediumBody: some View {
@@ -90,13 +94,7 @@ struct VertmaxWidgetEntryView: View {
 
             VStack(alignment: .trailing, spacing: Spacing.xs) {
                 if entry.snapshot.currentStreak > 0 {
-                    HStack(spacing: 3) {
-                        Image(systemName: "flame.fill")
-                            .font(.system(size: 11))
-                        Text("\(entry.snapshot.currentStreak) day streak")
-                            .font(VertFont.caption)
-                    }
-                    .foregroundStyle(.voltGreen)
+                    streakBadge
                 }
                 Text(lastTestedText)
                     .font(VertFont.caption)

@@ -15,9 +15,7 @@ enum WidgetSnapshotRefresher {
         let completions = (try? context.fetch(FetchDescriptor<SessionCompletion>())) ?? []
 
         let best = measurements.max { $0.heightInches < $1.heightInches }
-        let daysSinceLastMeasurement = best.map {
-            Calendar.current.dateComponents([.day], from: $0.date, to: .now).day ?? 0
-        }
+        let daysSinceLastMeasurement = StreakCalculator.daysSince(best?.date)
         let streak = StreakCalculator.currentStreak(
             sessionDates: completions.map(\.completedAt),
             measurementDates: measurements.map(\.date)

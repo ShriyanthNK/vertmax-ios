@@ -23,14 +23,16 @@ struct ProgramTabView: View {
         return ProgramProgression.applied(to: base, completions: completions)
     }
 
-    private var assignedProgram: Program? { progression?.program }
-
     /// First session, in week/day order, with no completion record yet.
-    private var upNext: (week: ProgramWeek, session: ProgramSession)? {
-        guard let program = assignedProgram else { return nil }
+    /// Takes the already-resolved program rather than re-deriving it, so
+    /// `body` computes `progression` exactly once per evaluation instead of
+    /// once per read site.
+    private func resolveUpNext(in program: Program) -> (week: ProgramWeek, session: ProgramSession)? {
         for week in program.weeks {
             for session in week.sessions {
-                let isDone = completions.contains { $0.weekNumber == week.weekNumber && $0.sessionID == session.id }
+                let isDone = completions.contains {
+                    $0.programID == program.id && $0.weekNumber == week.weekNumber && $0.sessionID == session.id
+                }
                 if !isDone { return (week, session) }
             }
         }
@@ -38,7 +40,12 @@ struct ProgramTabView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        let progression = self.progression
+        let assignedProgram = progression?.program
+        let upNext = assignedProgram.flatMap { resolveUpNext(in: $0) }
+        let boostedWeeks = progression?.boostedWeeks ?? []
+
+        return NavigationStack {
             ZStack {
                 Color.ink.ignoresSafeArea()
 
@@ -51,14 +58,14 @@ struct ProgramTabView: View {
                                 upNextCard(
                                     upNext.week,
                                     upNext.session,
-                                    isBoosted: progression?.boostedWeeks.contains(upNext.week.weekNumber) ?? false
+                                    isBoosted: boostedWeeks.contains(upNext.week.weekNumber)
                                 )
                             } else {
                                 allDoneCard
                             }
 
                             NavigationLink {
-                                ProgramView(program: assignedProgram, boostedWeeks: progression?.boostedWeeks ?? [])
+                                ProgramView(program: assignedProgram, boostedWeeks: boostedWeeks)
                             } label: {
                                 HStack {
                                     Text("View Full Schedule")
@@ -125,9 +132,7 @@ struct ProgramTabView: View {
                 .font(VertFont.caption)
                 .foregroundStyle(.textMuted)
             if isBoosted {
-                Label("Volume up — last week fully completed", systemImage: "arrow.up.forward")
-                    .font(VertFont.caption)
-                    .foregroundStyle(.voltGreen)
+                BoostBadge()
             }
 
             VStack(alignment: .leading, spacing: Spacing.xxs) {

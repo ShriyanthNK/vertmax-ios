@@ -12,11 +12,21 @@ struct VertmaxWidgetSnapshot: Codable {
     var currentStreak: Int
     var daysSinceLastMeasurement: Int?
 
+    /// Sample data for the widget gallery preview only — a real user who
+    /// genuinely has no measurements yet should see `.empty`, not fabricated
+    /// numbers on their actual home screen.
     static let placeholder = VertmaxWidgetSnapshot(
         bestVertInches: 28.5,
         bestVertDate: .now,
         currentStreak: 4,
         daysSinceLastMeasurement: 2
+    )
+
+    static let empty = VertmaxWidgetSnapshot(
+        bestVertInches: nil,
+        bestVertDate: nil,
+        currentStreak: 0,
+        daysSinceLastMeasurement: nil
     )
 }
 

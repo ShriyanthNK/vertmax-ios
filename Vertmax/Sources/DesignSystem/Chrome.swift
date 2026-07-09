@@ -56,6 +56,7 @@ struct VoltButtonStyle: ButtonStyle {
             .padding(.vertical, Spacing.sm)
             .background(isEnabled ? Color.voltGreen : Color.voltGreen.opacity(0.35))
             .clipShape(RoundedRectangle(cornerRadius: Radius.md, style: .continuous))
+            .opacity(isEnabled ? 1 : 0.5)
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .opacity(configuration.isPressed ? 0.88 : 1)
             .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
@@ -118,6 +119,69 @@ struct PlyoBadge: View {
             .padding(.vertical, 2)
             .background(Color.voltGreen)
             .clipShape(Capsule())
+    }
+}
+
+/// "Verified by Video" pill — shown on the measurement result screen and
+/// reused on the shareable card so the two can't visually drift apart.
+struct CredibilityBadge: View {
+    var body: some View {
+        HStack(spacing: Spacing.xxs) {
+            Image(systemName: "checkmark.seal.fill")
+                .foregroundStyle(.voltGreen)
+            Text("Verified by Video")
+                .font(VertFont.caption)
+                .foregroundStyle(.textPrimary)
+        }
+        .padding(.horizontal, Spacing.sm)
+        .padding(.vertical, Spacing.xxs)
+        .background(Color.surface)
+        .overlay(Capsule().strokeBorder(Color.white.opacity(0.06), lineWidth: 1))
+        .clipShape(Capsule())
+    }
+}
+
+/// Takeoff/landing evidence thumbnail — image-or-placeholder in a rounded,
+/// volt-stroked frame. Shared by the result screen and the shareable card.
+struct FrameThumbnail: View {
+    let image: CGImage?
+    var size: CGSize = CGSize(width: 120, height: 160)
+    var label: String?
+
+    var body: some View {
+        VStack(spacing: Spacing.xxs) {
+            Group {
+                if let image {
+                    Image(decorative: image, scale: 1)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    Color.surface
+                }
+            }
+            .frame(width: size.width, height: size.height)
+            .clipShape(RoundedRectangle(cornerRadius: Radius.sm))
+            .overlay(
+                RoundedRectangle(cornerRadius: Radius.sm)
+                    .strokeBorder(Color.voltGreen.opacity(0.5), lineWidth: 1.5)
+            )
+            if let label {
+                Text(label)
+                    .font(VertFont.caption)
+                    .foregroundStyle(.textMuted)
+            }
+        }
+    }
+}
+
+/// "Volume up" note shown wherever a boosted week (see `ProgramProgression`)
+/// appears — Home, the Program tab, and the full schedule. One definition so
+/// the copy/icon/color can't drift between the three.
+struct BoostBadge: View {
+    var body: some View {
+        Label("Volume up — last week fully completed", systemImage: "arrow.up.forward")
+            .font(VertFont.caption)
+            .foregroundStyle(.voltGreen)
     }
 }
 

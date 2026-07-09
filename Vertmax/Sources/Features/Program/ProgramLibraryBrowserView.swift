@@ -87,6 +87,15 @@ struct ProgramLibraryBrowserView: View {
             }
             .padding(Spacing.md)
             .cardStyle(accent: isActive ? .voltGreen : nil)
+            .overlay(
+                // cardStyle's border alone reads too subtly as "selected" —
+                // restore the light fill tint the flat-background version
+                // used to have, layered on top since cardStyle's own
+                // background is opaque.
+                RoundedRectangle(cornerRadius: Radius.lg, style: .continuous)
+                    .fill(isActive ? Color.voltGreen.opacity(0.08) : Color.clear)
+                    .allowsHitTesting(false)
+            )
         }
         .buttonStyle(.plain)
         .pressableRow()

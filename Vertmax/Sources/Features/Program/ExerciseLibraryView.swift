@@ -27,12 +27,16 @@ struct ExerciseLibraryView: View {
                 VStack(spacing: 0) {
                     filterBar
 
-                    List(filtered) { exercise in
-                        exerciseRow(exercise)
-                            .listRowBackground(Color.surface)
+                    if filtered.isEmpty {
+                        emptyState
+                    } else {
+                        List(filtered) { exercise in
+                            exerciseRow(exercise)
+                                .listRowBackground(Color.surface)
+                        }
+                        .scrollContentBackground(.hidden)
+                        .listStyle(.plain)
                     }
-                    .scrollContentBackground(.hidden)
-                    .listStyle(.plain)
                 }
             }
             .navigationTitle("Exercise Library")
@@ -44,6 +48,21 @@ struct ExerciseLibraryView: View {
                 }
             }
         }
+    }
+
+    private var emptyState: some View {
+        VStack(spacing: Spacing.sm) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 32))
+                .foregroundStyle(.textMuted)
+            Text("No exercises found")
+                .font(VertFont.headline)
+                .foregroundStyle(.textPrimary)
+            Text("Try a different search term or filter.")
+                .font(VertFont.caption)
+                .foregroundStyle(.textMuted)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private var filterBar: some View {

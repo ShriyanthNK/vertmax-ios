@@ -55,6 +55,7 @@ struct CameraCaptureView: View {
                     .padding(Spacing.sm)
                     .background(.ultraThinMaterial, in: Circle())
             }
+            .accessibilityLabel("Cancel")
             Spacer()
             if camera.activeFrameRate > 0 {
                 Text("\(Int(camera.activeFrameRate)) FPS")
@@ -93,6 +94,7 @@ struct CameraCaptureView: View {
                         .animation(.easeInOut(duration: 0.15), value: camera.isRecording)
                 }
             }
+            .accessibilityLabel(camera.isRecording ? "Stop recording" : "Start recording")
             .onChange(of: camera.isRecording) { _, isRecording in
                 recordingPulse = isRecording
             }

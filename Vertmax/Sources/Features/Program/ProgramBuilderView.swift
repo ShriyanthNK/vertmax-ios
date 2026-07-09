@@ -116,6 +116,7 @@ struct ProgramBuilderView: View {
                     Image(systemName: "trash")
                         .foregroundStyle(.stopRed)
                 }
+                .accessibilityLabel("Delete session")
             }
 
             ForEach(Array(sessions[index].exercises.enumerated()), id: \.offset) { exIndex, exercise in
@@ -173,6 +174,7 @@ struct ProgramBuilderView: View {
                 Image(systemName: "xmark.circle.fill")
                     .foregroundStyle(.textMuted)
             }
+            .accessibilityLabel("Remove exercise")
         }
         .padding(.vertical, Spacing.xxs)
     }

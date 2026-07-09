@@ -13,7 +13,11 @@ struct ProgramView: View {
     @Query private var completions: [SessionCompletion]
     @State private var explicitSelectedWeek: Int?
 
-    init(program: Program, boostedWeeks: Set<Int> = []) {
+    /// No default on `boostedWeeks` — deliberately: a silent `= []` default
+    /// would let a future call site compile cleanly while quietly never
+    /// showing the boost badge, with nothing forcing whoever adds a new
+    /// entry point to `ProgramView` to think about progression state.
+    init(program: Program, boostedWeeks: Set<Int>) {
         self.program = program
         self.boostedWeeks = boostedWeeks
         let programID = program.id
@@ -70,9 +74,7 @@ struct ProgramView: View {
                 .font(VertFont.caption)
                 .foregroundStyle(.textMuted)
             if boostedWeeks.contains(selectedWeek) {
-                Label("Volume up — last week fully completed", systemImage: "arrow.up.forward")
-                    .font(VertFont.caption)
-                    .foregroundStyle(.voltGreen)
+                BoostBadge()
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -117,6 +119,7 @@ struct ProgramView: View {
                     withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                         toggleCompletion(session: session, weekNumber: weekNumber, isComplete: isComplete)
                     }
+                    WidgetSnapshotRefresher.refresh(context: modelContext)
                 } label: {
                     Image(systemName: isComplete ? "checkmark.circle.fill" : "circle")
                         .font(.system(size: 26))
@@ -124,6 +127,7 @@ struct ProgramView: View {
                         .contentShape(Circle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel(isComplete ? "Mark session incomplete" : "Mark session complete")
             }
 
             VStack(spacing: Spacing.xs) {
@@ -170,6 +174,5 @@ struct ProgramView: View {
             modelContext.insert(SessionCompletion(programID: program.id, weekNumber: weekNumber, sessionID: session.id))
         }
         try? modelContext.save()
-        WidgetSnapshotRefresher.refresh(context: modelContext)
     }
 }

@@ -53,12 +53,12 @@ struct ShareCardView: View {
                 }
                 .trajectoryBackdrop(opacity: 0.18)
 
-                credibilityBadge
+                CredibilityBadge()
 
                 if takeoffImage != nil || landingImage != nil {
                     HStack(spacing: Spacing.md) {
-                        frameThumb(takeoffImage)
-                        frameThumb(landingImage)
+                        FrameThumbnail(image: takeoffImage, size: CGSize(width: 100, height: 130))
+                        FrameThumbnail(image: landingImage, size: CGSize(width: 100, height: 130))
                     }
                 }
 
@@ -73,36 +73,4 @@ struct ShareCardView: View {
         .frame(width: cardSize.width, height: cardSize.height)
     }
 
-    private var credibilityBadge: some View {
-        HStack(spacing: Spacing.xxs) {
-            Image(systemName: "checkmark.seal.fill")
-                .foregroundStyle(.voltGreen)
-            Text("Verified by Video")
-                .font(VertFont.caption)
-                .foregroundStyle(.textPrimary)
-        }
-        .padding(.horizontal, Spacing.sm)
-        .padding(.vertical, Spacing.xxs)
-        .background(Color.surface)
-        .overlay(Capsule().strokeBorder(Color.white.opacity(0.06), lineWidth: 1))
-        .clipShape(Capsule())
-    }
-
-    private func frameThumb(_ image: CGImage?) -> some View {
-        Group {
-            if let image {
-                Image(decorative: image, scale: 1)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } else {
-                Color.surface
-            }
-        }
-        .frame(width: 100, height: 130)
-        .clipShape(RoundedRectangle(cornerRadius: Radius.sm))
-        .overlay(
-            RoundedRectangle(cornerRadius: Radius.sm)
-                .strokeBorder(Color.voltGreen.opacity(0.5), lineWidth: 1.5)
-        )
-    }
 }

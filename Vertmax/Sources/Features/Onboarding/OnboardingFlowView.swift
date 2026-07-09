@@ -103,6 +103,7 @@ struct OnboardingFlowView: View {
                         Image(systemName: "chevron.left")
                             .foregroundStyle(.textMuted)
                     }
+                    .accessibilityLabel("Back")
                     Spacer()
                 }
             }
@@ -302,6 +303,7 @@ private struct BuildingProgramView: View {
                             .foregroundStyle(i < checkedCount ? .voltGreen : .textMuted)
                             .scaleEffect(i == checkedCount - 1 ? 1.15 : 1)
                             .animation(.spring(response: 0.35, dampingFraction: 0.5), value: checkedCount)
+                            .accessibilityHidden(true)
                         Text(items[i])
                             .font(VertFont.body(16, weight: i < checkedCount ? .semibold : .regular))
                             .foregroundStyle(i < checkedCount ? .textPrimary : .textMuted)

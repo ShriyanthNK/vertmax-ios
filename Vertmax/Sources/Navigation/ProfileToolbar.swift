@@ -13,6 +13,7 @@ private struct ProfileToolbarModifier: ViewModifier {
                         Image(systemName: "person.circle.fill")
                             .foregroundStyle(.textMuted)
                     }
+                    .accessibilityLabel("Profile")
                 }
             }
             .sheet(isPresented: $showProfile) {

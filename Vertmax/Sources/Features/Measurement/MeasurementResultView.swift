@@ -46,7 +46,7 @@ struct MeasurementResultView: View {
                 .opacity(revealed ? 1 : 0)
                 .animation(.spring(response: 0.55, dampingFraction: 0.68), value: revealed)
 
-                credibilityBadge
+                CredibilityBadge()
                     .reveal(revealed, delay: 0.2)
 
                 frameEvidence
@@ -88,53 +88,16 @@ struct MeasurementResultView: View {
                         Image(systemName: "square.and.arrow.up")
                             .foregroundStyle(.textPrimary)
                     }
+                    .accessibilityLabel("Share")
                 }
             }
         }
-    }
-
-    private var credibilityBadge: some View {
-        HStack(spacing: Spacing.xxs) {
-            Image(systemName: "checkmark.seal.fill")
-                .foregroundStyle(.voltGreen)
-            Text("Verified by Video")
-                .font(VertFont.caption)
-                .foregroundStyle(.textPrimary)
-        }
-        .padding(.horizontal, Spacing.sm)
-        .padding(.vertical, Spacing.xxs)
-        .background(Color.surface)
-        .overlay(Capsule().strokeBorder(Color.white.opacity(0.06), lineWidth: 1))
-        .clipShape(Capsule())
     }
 
     private var frameEvidence: some View {
         HStack(spacing: Spacing.md) {
-            frameCard(title: "Takeoff", image: takeoffThumbnail)
-            frameCard(title: "Landing", image: landingThumbnail)
-        }
-    }
-
-    private func frameCard(title: String, image: CGImage?) -> some View {
-        VStack(spacing: Spacing.xxs) {
-            Group {
-                if let image {
-                    Image(decorative: image, scale: 1)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                } else {
-                    Color.surface
-                }
-            }
-            .frame(width: 120, height: 160)
-            .clipShape(RoundedRectangle(cornerRadius: Radius.sm))
-            .overlay(
-                RoundedRectangle(cornerRadius: Radius.sm)
-                    .strokeBorder(Color.voltGreen.opacity(0.5), lineWidth: 1.5)
-            )
-            Text(title)
-                .font(VertFont.caption)
-                .foregroundStyle(.textMuted)
+            FrameThumbnail(image: takeoffThumbnail, label: "Takeoff")
+            FrameThumbnail(image: landingThumbnail, label: "Landing")
         }
     }
 
@@ -151,13 +114,20 @@ struct MeasurementResultView: View {
         )
         let renderer = ImageRenderer(content: card)
         renderer.scale = 3
-        guard let uiImage = renderer.uiImage else { return }
-        shareCardImage = Image(uiImage: uiImage)
+        guard let uiImage = renderer.uiImage, let data = uiImage.pngData() else { return }
 
-        guard let data = uiImage.pngData() else { return }
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("vertmax-vert-\(UUID().uuidString).png")
-        try? data.write(to: url)
-        shareCardURL = url
+        do {
+            try data.write(to: url)
+            // Only publish once the file actually exists on disk — otherwise
+            // ShareLink would hand the OS a URL to nothing and sharing would
+            // silently fail with no feedback to the user.
+            shareCardImage = Image(uiImage: uiImage)
+            shareCardURL = url
+        } catch {
+            shareCardImage = nil
+            shareCardURL = nil
+        }
     }
 
     private func loadThumbnails() async {

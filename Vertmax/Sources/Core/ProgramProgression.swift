@@ -38,7 +38,7 @@ enum ProgramProgression {
             }
             newWeeks.append(ProgramWeek(weekNumber: week.weekNumber, isDeload: week.isDeload, sessions: sessions))
 
-            previousWeekFullyCompleted = week.isDeload ? false : isFullyCompleted(week, completions: completions)
+            previousWeekFullyCompleted = week.isDeload ? false : isFullyCompleted(week, programID: program.id, completions: completions)
         }
 
         let adjusted = Program(
@@ -53,10 +53,10 @@ enum ProgramProgression {
         return Result(program: adjusted, boostedWeeks: boostedWeeks)
     }
 
-    private static func isFullyCompleted(_ week: ProgramWeek, completions: [SessionCompletion]) -> Bool {
+    private static func isFullyCompleted(_ week: ProgramWeek, programID: String, completions: [SessionCompletion]) -> Bool {
         guard !week.sessions.isEmpty else { return false }
         return week.sessions.allSatisfy { session in
-            completions.contains { $0.weekNumber == week.weekNumber && $0.sessionID == session.id }
+            completions.contains { $0.programID == programID && $0.weekNumber == week.weekNumber && $0.sessionID == session.id }
         }
     }
 

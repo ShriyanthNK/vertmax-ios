@@ -16,8 +16,7 @@ struct HomeView: View {
 
     /// Core retention event (PRD §5.3): nudge a retest every 3-4 weeks.
     private var daysSinceLastMeasurement: Int? {
-        guard let best else { return nil }
-        return Calendar.current.dateComponents([.day], from: best.date, to: .now).day
+        StreakCalculator.daysSince(best?.date)
     }
 
     /// Consecutive days with a completed session or a measurement — either
@@ -40,16 +39,17 @@ struct HomeView: View {
         return ProgramProgression.applied(to: base, completions: completions)
     }
 
-    private var assignedProgram: Program? { progression?.program }
-
     /// First session, in week/day order, with no completion record yet —
     /// same "up next" logic as ProgramTabView, surfaced here so today's work
-    /// doesn't require a tab switch to find.
-    private var todaySession: (week: ProgramWeek, session: ProgramSession)? {
-        guard let assignedProgram else { return nil }
-        for week in assignedProgram.weeks {
+    /// doesn't require a tab switch to find. Takes the already-resolved
+    /// program rather than re-deriving it, so callers compute `progression`
+    /// exactly once per body evaluation instead of once per read site.
+    private func resolveTodaySession(in program: Program) -> (week: ProgramWeek, session: ProgramSession)? {
+        for week in program.weeks {
             for session in week.sessions {
-                let isDone = completions.contains { $0.weekNumber == week.weekNumber && $0.sessionID == session.id }
+                let isDone = completions.contains {
+                    $0.programID == program.id && $0.weekNumber == week.weekNumber && $0.sessionID == session.id
+                }
                 if !isDone { return (week, session) }
             }
         }
@@ -57,7 +57,11 @@ struct HomeView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        let progression = self.progression
+        let assignedProgram = progression?.program
+        let todaySession = assignedProgram.flatMap { resolveTodaySession(in: $0) }
+
+        return NavigationStack {
             ZStack {
                 Color.ink.ignoresSafeArea()
 
@@ -242,9 +246,7 @@ struct HomeView: View {
                         .font(VertFont.caption)
                         .foregroundStyle(.textMuted)
                     if isBoosted {
-                        Label("Volume up — last week fully completed", systemImage: "arrow.up.forward")
-                            .font(VertFont.caption)
-                            .foregroundStyle(.voltGreen)
+                        BoostBadge()
                     }
                 }
                 Spacer()
@@ -252,6 +254,10 @@ struct HomeView: View {
                     withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                         completeSession(session, weekNumber: week.weekNumber, programID: program.id)
                     }
+                    // Outside the animated transaction — this is bookkeeping
+                    // for the widget, not part of what the spring should be
+                    // animating, and shouldn't delay the animation starting.
+                    WidgetSnapshotRefresher.refresh(context: modelContext)
                 } label: {
                     Image(systemName: "circle")
                         .font(.system(size: 26))
@@ -259,6 +265,7 @@ struct HomeView: View {
                         .contentShape(Circle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("Mark session complete")
             }
 
             VStack(alignment: .leading, spacing: Spacing.xxs) {
@@ -293,8 +300,14 @@ struct HomeView: View {
     }
 
     private func completeSession(_ session: ProgramSession, weekNumber: Int, programID: String) {
+        // Guards the same race ProgramView.toggleCompletion already guards
+        // against: a fast double-tap during the completion spring animation
+        // shouldn't insert two rows for the same session.
+        let alreadyDone = completions.contains {
+            $0.programID == programID && $0.weekNumber == weekNumber && $0.sessionID == session.id
+        }
+        guard !alreadyDone else { return }
         modelContext.insert(SessionCompletion(programID: programID, weekNumber: weekNumber, sessionID: session.id))
         try? modelContext.save()
-        WidgetSnapshotRefresher.refresh(context: modelContext)
     }
 }
