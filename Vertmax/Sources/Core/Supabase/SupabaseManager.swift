@@ -56,6 +56,23 @@ final class SupabaseManager: ObservableObject {
         }
     }
 
+    /// Completes native Sign in with Apple. `nonce` is the raw (unhashed)
+    /// value generated before the `ASAuthorizationController` request — the
+    /// SHA256 of it was sent as the request's nonce, and Supabase verifies
+    /// the ID token's `nonce` claim against this raw value.
+    func signInWithApple(idToken: String, nonce: String) async {
+        isAuthenticating = true
+        authError = nil
+        defer { isAuthenticating = false }
+        do {
+            session = try await client.auth.signInWithIdToken(
+                credentials: OpenIDConnectCredentials(provider: .apple, idToken: idToken, nonce: nonce)
+            )
+        } catch {
+            authError = error.localizedDescription
+        }
+    }
+
     func signOut() async {
         try? await client.auth.signOut()
         session = nil

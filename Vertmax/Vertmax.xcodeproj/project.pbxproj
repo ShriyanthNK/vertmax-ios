@@ -81,6 +81,7 @@
 		D61AB279F8CB047791781096 /* OnboardingPainPointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973864B69F76F8CCE9A3E0A /* OnboardingPainPointsView.swift */; };
 		D969AD7AC5C0413F462D192C /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549B78E3C6BD3BE671D1F6A /* Typography.swift */; };
 		DB50A4B8283495095942779C /* beginner-gym.json in Resources */ = {isa = PBXBuildFile; fileRef = 06065A81408A5A6B5F3C677F /* beginner-gym.json */; };
+		DDB14D74D0BD77AE0E6CB92C /* AppleNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755BA88D37E7AED51DE1F98 /* AppleNonce.swift */; };
 		E035B9BCCB444590FBD79FE5 /* ProgramTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9DEE0EAB5747A356D810E7 /* ProgramTabView.swift */; };
 		E17CCBB0A58B490957410A37 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD2A09572012C76FF86D724 /* Exercise.swift */; };
 		E656EF4E7CFAB92FACF32209 /* approach-jump-focus.json in Resources */ = {isa = PBXBuildFile; fileRef = B79F972BD08E8149A22F3C3C /* approach-jump-focus.json */; };
@@ -202,6 +203,7 @@
 		EBF3BE7C393F8591FE4DF8FC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F379D31DD56A27C65FC4E219 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F60BF1B6AA7B10605B464089 /* in-season-maintenance.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "in-season-maintenance.json"; sourceTree = "<group>"; };
+		F755BA88D37E7AED51DE1F98 /* AppleNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleNonce.swift; sourceTree = "<group>"; };
 		FC79AB85116E8C42CC47D56F /* ProgramRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -400,6 +402,7 @@
 		B2CD6ACF86B56552D32805A9 /* Supabase */ = {
 			isa = PBXGroup;
 			children = (
+				F755BA88D37E7AED51DE1F98 /* AppleNonce.swift */,
 				D8A41C10F3E92DA8B05AB839 /* SupabaseManager.swift */,
 			);
 			path = Supabase;
@@ -624,6 +627,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDB14D74D0BD77AE0E6CB92C /* AppleNonce.swift in Sources */,
 				E6F34CA13FB7ADB3F188702F /* CameraCaptureView.swift in Sources */,
 				6A755635F57FEEA8A385CF2C /* CameraPreviewView.swift in Sources */,
 				317F0C5FD90D1C9B65AA5974 /* CameraService.swift in Sources */,

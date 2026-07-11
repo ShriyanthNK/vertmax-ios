@@ -50,6 +50,8 @@ targets:
       properties:
         com.apple.security.application-groups:
           - group.com.vertmax.ios
+        com.apple.developer.applesignin:
+          - Default
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.vertmax.ios

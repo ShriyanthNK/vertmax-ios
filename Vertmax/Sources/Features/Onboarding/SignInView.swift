@@ -1,8 +1,10 @@
+import AuthenticationServices
 import SwiftUI
 
 struct SignInView: View {
     @StateObject private var supabase = SupabaseManager.shared
     @State private var appeared = false
+    @State private var currentAppleNonce: String?
     #if DEBUG
     var onDebugBypass: (() -> Void)?
     #endif
@@ -56,6 +58,36 @@ struct SignInView: View {
                         }
                     }
                     .buttonStyle(VoltButtonStyle())
+                    .disabled(supabase.isAuthenticating)
+
+                    SignInWithAppleButton(.continue) { request in
+                        let nonce = AppleNonce.random()
+                        currentAppleNonce = nonce
+                        request.requestedScopes = [.email, .fullName]
+                        request.nonce = AppleNonce.sha256(nonce)
+                    } onCompletion: { result in
+                        switch result {
+                        case .success(let authorization):
+                            guard
+                                let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
+                                let tokenData = credential.identityToken,
+                                let idToken = String(data: tokenData, encoding: .utf8),
+                                let nonce = currentAppleNonce
+                            else {
+                                supabase.authError = "Apple sign-in didn't return a valid credential."
+                                return
+                            }
+                            Task { await supabase.signInWithApple(idToken: idToken, nonce: nonce) }
+                        case .failure(let error):
+                            // The system cancel button surfaces as ASAuthorizationError.canceled —
+                            // not a real failure, so don't show an error for it.
+                            if (error as? ASAuthorizationError)?.code != .canceled {
+                                supabase.authError = error.localizedDescription
+                            }
+                        }
+                    }
+                    .signInWithAppleButtonStyle(.white)
+                    .frame(height: 50)
                     .disabled(supabase.isAuthenticating)
 
                     if let error = supabase.authError {
