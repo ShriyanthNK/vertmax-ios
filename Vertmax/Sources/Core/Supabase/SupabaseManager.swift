@@ -61,6 +61,19 @@ final class SupabaseManager: ObservableObject {
         session = nil
     }
 
+    /// Permanently deletes the signed-in user's account server-side via the
+    /// `delete_user_account` RPC (a SECURITY DEFINER Postgres function scoped
+    /// to `auth.uid()`) — this cascades to every synced table (profile,
+    /// measurements, completions, custom programs) via their `ON DELETE
+    /// CASCADE` foreign keys. Throws (rather than swallowing errors like
+    /// `signOut`) so the caller can surface a failure instead of wiping local
+    /// data under the false assumption the server side succeeded.
+    func deleteAccount() async throws {
+        _ = try await client.rpc("delete_user_account").execute()
+        try? await client.auth.signOut()
+        session = nil
+    }
+
     /// Call from `.onOpenURL` so the OAuth callback completes the sign-in.
     func handle(url: URL) {
         Task { try? await client.auth.session(from: url) }

@@ -59,6 +59,16 @@ struct RootTabView: View {
                 Task { await SyncEngine.reconcile(context: modelContext) }
             }
         }
+        // Deleting the account wipes the local `UserProfile` row (see
+        // `ProfileView.wipeLocalData`); only reset the onboarding lock when
+        // that happens post-onboarding (`isOnboardingActive == false`), not
+        // during onboarding itself where `profiles` is transiently empty
+        // before the injury step inserts the row.
+        .onChange(of: profiles.isEmpty) { _, isEmpty in
+            if isEmpty, isOnboardingActive == false {
+                isOnboardingActive = nil
+            }
+        }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .active && isSignedIn {
                 Task { await SyncEngine.reconcile(context: modelContext) }
