@@ -31,7 +31,7 @@ struct VertmaxWidgetSnapshot: Codable {
 }
 
 enum WidgetSnapshotStore {
-    private static let suiteName = "group.com.vertmax.app"
+    private static let suiteName = "group.com.vertmax.ios"
     private static let key = "widgetSnapshot"
 
     static func save(_ snapshot: VertmaxWidgetSnapshot) {
