@@ -75,6 +75,7 @@ targets:
       - path: Sources/DesignSystem/TrajectoryArc.swift
       - path: Sources/Shared/WidgetSnapshot.swift
       - path: Resources/Fonts
+      - path: WidgetExtension/PrivacyInfo.xcprivacy
     info:
       path: WidgetExtension/Info.plist
       properties:

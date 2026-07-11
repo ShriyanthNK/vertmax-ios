@@ -85,25 +85,27 @@ struct OutlineButtonStyle: ButtonStyle {
 
 /// A row/card that scales down slightly on press — for tappable rows that
 /// aren't full buttons (program cards, exercise rows).
-struct PressableRowStyle: ViewModifier {
-    @State private var isPressed = false
-
-    func body(content: Content) -> some View {
-        content
-            .scaleEffect(isPressed ? 0.98 : 1)
-            .animation(.easeOut(duration: 0.12), value: isPressed)
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in isPressed = true }
-                    .onEnded { _ in isPressed = false }
-            )
+///
+/// A `ButtonStyle` rather than a gesture-based modifier: this used to be a
+/// `simultaneousGesture(DragGesture(minimumDistance: 0))`, which claimed
+/// every touch-down before an ancestor `ScrollView` got a chance to
+/// recognize its own pan gesture — any scrollable list of these rows (e.g.
+/// onboarding's multi-select pain-points step) was effectively unscrollable
+/// past the first screenful. `configuration.isPressed` gets the same visual
+/// feedback from the button system itself, with no separate gesture to
+/// conflict with scrolling.
+struct PressableRowButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.98 : 1)
+            .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
     }
 }
 
 extension View {
     /// `nonisolated` for the same reason as `cardStyle` above.
     nonisolated func pressableRow() -> some View {
-        modifier(PressableRowStyle())
+        buttonStyle(PressableRowButtonStyle())
     }
 }
 

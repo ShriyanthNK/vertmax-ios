@@ -3,11 +3,7 @@ import SwiftData
 
 private enum OnboardingStepKind: Hashable {
     case welcome, sport, jumpType, goal, painPoints, tinderCards, socialProof, solution, comparison
-    case equipment, experience, demoPick, demoOutput, injury, building, widgetPromo, reveal, paywall
-}
-
-private enum PostPaywallDestination {
-    case measure, explore
+    case equipment, experience, demoPick, demoOutput, injury, building, widgetPromo, reveal
 }
 
 /// 5-tap Q&A onboarding (PRD §5.1), followed by a "building your program"
@@ -25,7 +21,6 @@ struct OnboardingFlowView: View {
     @State private var assignedProgram: Program?
     @State private var showMeasurementFlow = false
     @State private var hapticTick = 0
-    @State private var postPaywallDestination: PostPaywallDestination = .explore
     @State private var selectedDemoDrillNames: Set<String> = []
 
     private var steps: [OnboardingStepKind] {
@@ -34,16 +29,19 @@ struct OnboardingFlowView: View {
         s.append(contentsOf: [
             .goal, .painPoints, .tinderCards, .socialProof, .solution, .comparison,
             .equipment, .experience, .demoPick, .demoOutput,
-            .injury, .building, .widgetPromo, .reveal, .paywall
+            .injury, .building, .widgetPromo, .reveal
         ])
         return s
     }
 
     private var currentKind: OnboardingStepKind { steps[stepIndex] }
+    /// Shown on every step except the first (nothing to go back to) and
+    /// `building` — that step self-advances via a `Task` of timed sleeps,
+    /// and stepping back while it's still running would race with it: the
+    /// task would eventually finish and call `advance()` anyway, yanking
+    /// the user back forward past wherever they navigated to.
     private var showsBackChevron: Bool {
-        stepIndex > 0
-            && currentKind != .building && currentKind != .widgetPromo
-            && currentKind != .reveal && currentKind != .paywall && currentKind != .demoOutput
+        stepIndex > 0 && currentKind != .building
     }
 
     var body: some View {
@@ -86,17 +84,9 @@ struct OnboardingFlowView: View {
                             program: assignedProgram,
                             sport: answers.sport,
                             goal: answers.goal,
-                            onMeasureNow: {
-                                postPaywallDestination = .measure
-                                advance()
-                            },
-                            onExploreLater: {
-                                postPaywallDestination = .explore
-                                advance()
-                            }
+                            onMeasureNow: { showMeasurementFlow = true },
+                            onExploreLater: onComplete
                         )
-                    case .paywall:
-                        PaywallView(program: assignedProgram, onContinue: continueAfterPaywall)
                     }
                 }
                 .id(currentKind)
@@ -293,13 +283,6 @@ struct OnboardingFlowView: View {
             if stepIndex < steps.count - 1 {
                 stepIndex += 1
             }
-        }
-    }
-
-    private func continueAfterPaywall() {
-        switch postPaywallDestination {
-        case .measure: showMeasurementFlow = true
-        case .explore: onComplete()
         }
     }
 
@@ -538,84 +521,6 @@ private struct ProgramRevealView: View {
             Spacer()
         }
         .padding(.horizontal, Spacing.xs)
-    }
-}
-
-/// Placeholder paywall — the "unlock what you just built" beat the
-/// payoff-before-paywall pattern above sets up. Renders real UI so the step
-/// is wired end-to-end, but purchase behavior is entirely TODO: there's no
-/// StoreKit/RevenueCat product wiring yet, so both buttons just continue —
-/// this never gates access to the app until that's connected.
-private struct PaywallView: View {
-    let program: Program?
-    let onContinue: () -> Void
-
-    var body: some View {
-        ZStack {
-            Color.ink.ignoresSafeArea()
-            VStack(spacing: Spacing.lg) {
-                Spacer(minLength: Spacing.md)
-
-                VStack(spacing: Spacing.xs) {
-                    Image(systemName: "bolt.fill")
-                        .font(.system(size: 32))
-                        .foregroundStyle(.voltGreen)
-                    Text("Unlock Your Full Program")
-                        .font(VertFont.screenTitle)
-                        .foregroundStyle(.textPrimary)
-                        .multilineTextAlignment(.center)
-                    if let program {
-                        Text(program.name)
-                            .font(VertFont.headline)
-                            .foregroundStyle(.voltGreen)
-                    }
-                }
-
-                VStack(alignment: .leading, spacing: Spacing.sm) {
-                    benefitRow(icon: "chart.line.uptrend.xyaxis", text: "Every week of your training program")
-                    benefitRow(icon: "camera.fill", text: "Unlimited frame-accurate jump measurements")
-                    benefitRow(icon: "bubble.left.and.bubble.right.fill", text: "Coach guidance tailored to your goal")
-                }
-                .padding(Spacing.md)
-                .cardStyle()
-
-                Spacer(minLength: Spacing.md)
-
-                // TODO: replace with the real StoreKit product + price
-                // (`Product.displayPrice`) once an App Store Connect
-                // subscription is configured, and gate `onContinue` behind
-                // an actual purchase/restore instead of always succeeding.
-                VStack(spacing: Spacing.sm) {
-                    Button("Start 7-Day Free Trial", action: onContinue)
-                        .buttonStyle(VoltButtonStyle())
-                    Text("Then $59.99/year. Cancel anytime.")
-                        .font(VertFont.caption)
-                        .foregroundStyle(.textMuted)
-
-                    HStack(spacing: Spacing.md) {
-                        Button("Restore Purchases") {
-                            // TODO: call StoreKit `AppStore.sync()` / RevenueCat restore.
-                        }
-                        Button("Maybe Later", action: onContinue)
-                    }
-                    .font(VertFont.caption)
-                    .foregroundStyle(.textMuted)
-                }
-            }
-            .padding(Spacing.lg)
-        }
-    }
-
-    private func benefitRow(icon: String, text: String) -> some View {
-        HStack(spacing: Spacing.sm) {
-            Image(systemName: icon)
-                .foregroundStyle(.voltGreen)
-                .frame(width: 24)
-            Text(text)
-                .font(VertFont.body(15))
-                .foregroundStyle(.textPrimary)
-            Spacer()
-        }
     }
 }
 

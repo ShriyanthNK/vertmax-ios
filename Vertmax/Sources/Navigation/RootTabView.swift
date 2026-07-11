@@ -11,7 +11,7 @@ struct RootTabView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     @Query private var profiles: [UserProfile]
-    @State private var justFinishedOnboarding = false
+    @State private var isOnboardingActive: Bool?
     #if DEBUG
     @State private var debugBypassAuth = false
     #endif
@@ -24,10 +24,21 @@ struct RootTabView: View {
         #endif
     }
 
+    /// Locked in once via `onAppear` rather than recomputed live from
+    /// `profiles.isEmpty` — onboarding inserts the `UserProfile` right after
+    /// the injury step, well before the flow actually ends (building →
+    /// widgetPromo → reveal). If this stayed reactive, the moment
+    /// that row landed `profiles.isEmpty` would flip to false and this view
+    /// would swap `OnboardingFlowView` out from under the in-progress flow,
+    /// dumping the user onto the sign-in screen mid-onboarding.
+    private var showOnboarding: Bool {
+        isOnboardingActive ?? profiles.isEmpty
+    }
+
     var body: some View {
         Group {
-            if profiles.isEmpty && !justFinishedOnboarding {
-                OnboardingFlowView(onComplete: { justFinishedOnboarding = true })
+            if showOnboarding {
+                OnboardingFlowView(onComplete: { isOnboardingActive = false })
             } else if isSignedIn {
                 MainTabView()
             } else {
@@ -36,6 +47,11 @@ struct RootTabView: View {
                 #else
                 SignInView()
                 #endif
+            }
+        }
+        .onAppear {
+            if isOnboardingActive == nil {
+                isOnboardingActive = profiles.isEmpty
             }
         }
         .onChange(of: isSignedIn) { _, signedIn in

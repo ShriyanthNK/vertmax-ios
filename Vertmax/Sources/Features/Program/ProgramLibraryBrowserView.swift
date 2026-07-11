@@ -97,7 +97,6 @@ struct ProgramLibraryBrowserView: View {
                     .allowsHitTesting(false)
             )
         }
-        .buttonStyle(.plain)
         .pressableRow()
     }
 }

@@ -36,11 +36,14 @@
 		567A2F25D658AD083A86F96F /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB8C2BE0B37BD5D55EC177 /* UserProfile.swift */; };
 		599B4AE1DF96C6B9DD965C4F /* OnboardingComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B78441DA397DB0EA19C6F07 /* OnboardingComparisonView.swift */; };
 		5D0FEEC0D2AE5DE61A63D751 /* VertmaxWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5350A0D24A572352C084353 /* VertmaxWidgetProvider.swift */; };
+		5EF0FAACDF0FF99D63023432 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CE2E9D9EF17944A741C726FD /* PrivacyInfo.xcprivacy */; };
 		626607843B10D27EF1BBA4AA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379D31DD56A27C65FC4E219 /* Colors.swift */; };
 		62E31A81F7C17C0369303D16 /* VertmaxLogoMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D86088BF9327417107129F4 /* VertmaxLogoMark.swift */; };
+		68BB4C1C1DBA976E8596A1D0 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = EBF3BE7C393F8591FE4DF8FC /* PrivacyInfo.xcprivacy */; };
 		6A755635F57FEEA8A385CF2C /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715AC28A9487FEA6DC1B449 /* CameraPreviewView.swift */; };
 		6CFC0E764F8A414153F3CAB0 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9EA8D51F683958047E4FD4 /* Spacing.swift */; };
 		728A3FD103B8FA96E86D1617 /* ArchivoBlack-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1A2C119EE4710A4E48C975B /* ArchivoBlack-Regular.ttf */; };
+		72A856923B0AF2AF192AC761 /* ProgramExplainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060914880404ED589C4E0B87 /* ProgramExplainer.swift */; };
 		75A0CACAED7C5B9A5C5503A4 /* SessionCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481FEAE087406ABACB47CD2 /* SessionCompletion.swift */; };
 		768B2051B7CFF89E74E2797D /* IBMPlexMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8A5C3B500BFF17BACE8A898 /* IBMPlexMono-Medium.ttf */; };
 		7A2B37993ED3510FEA7FB9B9 /* ProgramRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC79AB85116E8C42CC47D56F /* ProgramRouter.swift */; };
@@ -122,6 +125,7 @@
 
 /* Begin PBXFileReference section */
 		06065A81408A5A6B5F3C677F /* beginner-gym.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "beginner-gym.json"; sourceTree = "<group>"; };
+		060914880404ED589C4E0B87 /* ProgramExplainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramExplainer.swift; sourceTree = "<group>"; };
 		08ADDE5723498C2C4280BA42 /* ProgramBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramBuilderView.swift; sourceTree = "<group>"; };
 		0D070E35B00FCC85D563691B /* ManualEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryView.swift; sourceTree = "<group>"; };
 		0F651D87E1F1D1C14332B126 /* Motion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 		BEAD9CC87D6216FAA36936A1 /* IBMPlexMono-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "IBMPlexMono-OFL.txt"; sourceTree = "<group>"; };
 		C8A5C3B500BFF17BACE8A898 /* IBMPlexMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Medium.ttf"; sourceTree = "<group>"; };
 		CB93D30207E5442D2C4D44E2 /* exercises.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exercises.json; sourceTree = "<group>"; };
+		CE2E9D9EF17944A741C726FD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D7A0760FAD81B9E48EEAB661 /* VertmaxWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertmaxWidgetView.swift; sourceTree = "<group>"; };
 		D8A41C10F3E92DA8B05AB839 /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
 		DB9DEE0EAB5747A356D810E7 /* ProgramTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramTabView.swift; sourceTree = "<group>"; };
@@ -194,6 +199,7 @@
 		E83B130312D6320A155C9FA5 /* intermediate-gym.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "intermediate-gym.json"; sourceTree = "<group>"; };
 		E89AFCDEA5FB11E9A6FC3E2B /* IBMPlexMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Bold.ttf"; sourceTree = "<group>"; };
 		EBD26452EC459DE4BA495D05 /* IBMPlexMono-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-SemiBold.ttf"; sourceTree = "<group>"; };
+		EBF3BE7C393F8591FE4DF8FC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F379D31DD56A27C65FC4E219 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F60BF1B6AA7B10605B464089 /* in-season-maintenance.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "in-season-maintenance.json"; sourceTree = "<group>"; };
 		FC79AB85116E8C42CC47D56F /* ProgramRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramRouter.swift; sourceTree = "<group>"; };
@@ -288,6 +294,7 @@
 		491210A49FE905506147CAC6 /* WidgetExtension */ = {
 			isa = PBXGroup;
 			children = (
+				CE2E9D9EF17944A741C726FD /* PrivacyInfo.xcprivacy */,
 				B079FCA352A16FA5A7218721 /* Sources */,
 			);
 			path = WidgetExtension;
@@ -320,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				5613B79B3702B9713758A414 /* ExerciseLibrary.swift */,
+				060914880404ED589C4E0B87 /* ProgramExplainer.swift */,
 				397641BC859D2AF964679D7E /* ProgramLibrary.swift */,
 				33B703A97A8EEFA1AF6CB90E /* ProgramProgression.swift */,
 				72844551E330F9B3795C366F /* ProgramResolver.swift */,
@@ -371,6 +379,7 @@
 				A931200DF38071E9C946DE88 /* Assets.xcassets */,
 				CB93D30207E5442D2C4D44E2 /* exercises.json */,
 				35AE02367677786052E19130 /* Info.plist */,
+				EBF3BE7C393F8591FE4DF8FC /* PrivacyInfo.xcprivacy */,
 				4035F7C0BABAB45BEA4900AB /* Vertmax.entitlements */,
 				30BDEF6B728FEEA9CEAB2232 /* Fonts */,
 				E953CBA81A735D7DB0680ABC /* Programs */,
@@ -582,6 +591,7 @@
 				8710D22EAE283C2B42CC24A1 /* IBMPlexMono-OFL.txt in Resources */,
 				ACD6AEADBA7B1A68DE3D5AE7 /* IBMPlexMono-Regular.ttf in Resources */,
 				0DA407030C538DC6930FF194 /* IBMPlexMono-SemiBold.ttf in Resources */,
+				5EF0FAACDF0FF99D63023432 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +607,7 @@
 				4A836267C1FD75FF1B9C5071 /* IBMPlexMono-OFL.txt in Resources */,
 				3A037A7D6D645F4A04F7B1B5 /* IBMPlexMono-Regular.ttf in Resources */,
 				A02086CB6C00DF8C4DEE2EB6 /* IBMPlexMono-SemiBold.ttf in Resources */,
+				68BB4C1C1DBA976E8596A1D0 /* PrivacyInfo.xcprivacy in Resources */,
 				E656EF4E7CFAB92FACF32209 /* approach-jump-focus.json in Resources */,
 				A8025DA67C25A495605B1818 /* beginner-bodyweight.json in Resources */,
 				DB50A4B8283495095942779C /* beginner-gym.json in Resources */,
@@ -645,6 +656,7 @@
 				1AD03571D6A8C854DA62F52D /* ProfileView.swift in Sources */,
 				24FBF9A41013F594808A5087 /* Program.swift in Sources */,
 				FBB49386CAC8BDC8C14E23E2 /* ProgramBuilderView.swift in Sources */,
+				72A856923B0AF2AF192AC761 /* ProgramExplainer.swift in Sources */,
 				A23CC672A98A5333C953CBA9 /* ProgramLibrary.swift in Sources */,
 				98396E89C150B4D44F819D24 /* ProgramLibraryBrowserView.swift in Sources */,
 				FF619AADF5F65CCBE79B483D /* ProgramProgression.swift in Sources */,
