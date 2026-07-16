@@ -12,16 +12,9 @@ struct RootTabView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Query private var profiles: [UserProfile]
     @State private var isOnboardingActive: Bool?
-    #if DEBUG
-    @State private var debugBypassAuth = false
-    #endif
 
     private var isSignedIn: Bool {
-        #if DEBUG
-        supabase.session != nil || debugBypassAuth
-        #else
         supabase.session != nil
-        #endif
     }
 
     /// Locked in once via `onAppear` rather than recomputed live from
@@ -42,11 +35,7 @@ struct RootTabView: View {
             } else if isSignedIn {
                 MainTabView()
             } else {
-                #if DEBUG
-                SignInView(onDebugBypass: { debugBypassAuth = true })
-                #else
                 SignInView()
-                #endif
             }
         }
         .onAppear {

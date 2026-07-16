@@ -5,9 +5,6 @@ struct SignInView: View {
     @StateObject private var supabase = SupabaseManager.shared
     @State private var appeared = false
     @State private var currentAppleNonce: String?
-    #if DEBUG
-    var onDebugBypass: (() -> Void)?
-    #endif
 
     var body: some View {
         ZStack {
@@ -102,15 +99,6 @@ struct SignInView: View {
                         .foregroundStyle(.textMuted)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, Spacing.lg)
-
-                    #if DEBUG
-                    if let onDebugBypass {
-                        Button("Skip Sign-In (Debug Build)", action: onDebugBypass)
-                            .font(VertFont.caption)
-                            .foregroundStyle(.voltGreen)
-                            .padding(.top, Spacing.xs)
-                    }
-                    #endif
                 }
                 .padding(.bottom, Spacing.xxl)
                 .reveal(appeared, delay: 0.2)
